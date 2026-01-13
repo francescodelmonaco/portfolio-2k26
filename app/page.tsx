@@ -1,8 +1,13 @@
+import { skills } from "../lib/data";
+
 import Image from "next/image";
 import Silk from "../components/Silk";
 import Card from "../components/ui/card";
 import InfiniteCarousel from "../components/ui/infinite-carousel";
-import { skills } from "../lib/data";
+import ProfileImage from "../public/img/foto-profilo.png";
+
+import { Github, Linkedin, FileUser, Mail } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -25,8 +30,23 @@ export default function Home() {
             <div className="flex flex-col gap-1 h-1/2">
               <span className="text-xl font-bold">about</span>
 
-              <Card>
-                <span>Francesco</span>
+              <Card className="flex items-center justify-between gap-2">
+                <Image
+                  src={ProfileImage}
+                  alt="Francesco"
+                  width={100}
+                  height={100}
+                  className="w-1/2 rounded-lg h-full object-cover"
+                />
+
+                <div className="flex flex-col justify-center gap-10 text-center w-1/2">
+                  <span className="text-4xl font-bold">Francesco Delmonaco</span>
+
+                  <div className="flex flex-col gap-1">
+                    <p className="text">full stack web developer</p>
+                    <p className="text">based in brescia, lombardy</p>
+                  </div>
+                </div>
               </Card>
             </div>
 
@@ -36,20 +56,22 @@ export default function Home() {
 
               <Card className="px-0">
                 <InfiniteCarousel speed={20}>
-                  {skills.map((skill, id) => (
-                    <div
-                      key={id}
-                      className="flex flex-col items-center gap-2 min-w-[80px] self-center"
-                    >
-                      <Image
-                        src={skill.icon}
-                        alt={skill.name}
-                        width={60}
-                        height={60}
-                      />
-                      <span className="text-xs text-center font-sans">{skill.name}</span>
-                    </div>
-                  ))}
+                  {
+                    skills.map((skill, id) => (
+                      <div
+                        key={id}
+                        className="flex flex-col items-center gap-2 min-w-[80px] self-center"
+                      >
+                        <Image
+                          src={skill.icon}
+                          alt={skill.name}
+                          width={60}
+                          height={60}
+                        />
+                        <span className="text-xs text-center font-sans">{skill.name}</span>
+                      </div>
+                    ))
+                  }
                 </InfiniteCarousel>
               </Card>
             </div>
@@ -58,8 +80,39 @@ export default function Home() {
             <div className="flex flex-col gap-1 h-1/3">
               <span className="text-xl font-bold">contacts</span>
 
-              <Card>
-                <span>Francesco</span>
+              <Card className="flex items-center justify-between gap-3">
+                <Link
+                  href="https://github.com/francescodelmonaco"
+                  target="_blank"
+                  className="bg-(--white)/10 hover:bg-(--white)/20 transition-all duration-300 p-5 w-1/4 rounded-lg h-full cursor-pointer hover:scale-102 hover:shadow-lg flex items-center justify-center"
+                >
+                  <Github className="w-20 h-20" />
+                </Link>
+
+                <Link
+                  href="https://linkedin.com/in/francescodelmonaco"
+                  target="_blank"
+                  className="bg-(--white)/10 hover:bg-(--white)/20 transition-all duration-300 p-5 w-1/4 rounded-lg h-full cursor-pointer hover:scale-102 hover:shadow-lg flex items-center justify-center"
+                >
+                  <Linkedin className="w-20 h-20" />
+                </Link>
+
+                <Link
+                  href="/documents/cv-francesco-delmonaco.pdf"
+                  download="cv-francesco-delmonaco.pdf"
+                  target="_blank"
+                  className="bg-(--white)/10 hover:bg-(--white)/20 transition-all duration-300 p-5 w-1/4 rounded-lg h-full cursor-pointer hover:scale-102 hover:shadow-lg flex items-center justify-center"
+                >
+                  <FileUser className="w-20 h-20" />
+                </Link>
+
+                <Link
+                  href="mailto:francescodelmonaco1999@gmail.com"
+                  target="_blank"
+                  className="bg-(--white)/10 hover:bg-(--white)/20 transition-all duration-300 p-5 w-1/4 rounded-lg h-full cursor-pointer hover:scale-102 hover:shadow-lg flex items-center justify-center"
+                >
+                  <Mail className="w-20 h-20" />
+                </Link>
               </Card>
             </div>
           </section>

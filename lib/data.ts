@@ -13,44 +13,14 @@ import supabaseIcon from '../public/icons/supabase.svg';
 import postgresqlIcon from '../public/icons/postgresql.svg';
 
 export const skills: { name: string, icon: string }[] = [
-    {
-        name: 'React',
-        icon: reactIcon
-    },
-    {
-        name: 'Next.js',
-        icon: nextIcon
-    },
-    {
-        name: 'JavaScript',
-        icon: javascriptIcon
-    },
-    {
-        name: 'TypeScript',
-        icon: typescriptIcon
-    },
-    {
-        name: 'Tailwind CSS',
-        icon: tailwindIcon
-    },
-    {
-        name: 'Node.js',
-        icon: nodeIcon
-    },
-    {
-        name: 'Express',
-        icon: expressIcon
-    },
-    {
-        name: 'MySQL',
-        icon: mysqlIcon
-    },
-    {
-        name: 'PostgreSQL',
-        icon: postgresqlIcon
-    },
-    {
-        name: 'Supabase',
-        icon: supabaseIcon
-    },
-]
+    { name: 'React', icon: reactIcon },
+    { name: 'Next.js', icon: nextIcon },
+    { name: 'JavaScript', icon: javascriptIcon },
+    { name: 'TypeScript', icon: typescriptIcon },
+    { name: 'Tailwind CSS', icon: tailwindIcon },
+    { name: 'Node.js', icon: nodeIcon },
+    { name: 'Express', icon: expressIcon },
+    { name: 'MySQL', icon: mysqlIcon },
+    { name: 'PostgreSQL', icon: postgresqlIcon },
+    { name: 'Supabase', icon: supabaseIcon },
+];
