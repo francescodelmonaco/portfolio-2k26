@@ -1,5 +1,8 @@
+import Image from "next/image";
 import Silk from "../components/Silk";
 import Card from "../components/ui/card";
+import InfiniteCarousel from "../components/ui/infinite-carousel";
+import { skills } from "../lib/data";
 
 export default function Home() {
   return (
@@ -31,8 +34,23 @@ export default function Home() {
             <div className="flex flex-col gap-1 h-1/7">
               <span className="text-xl font-bold">skills</span>
 
-              <Card>
-                <span>Francesco</span>
+              <Card className="px-0">
+                <InfiniteCarousel speed={20}>
+                  {skills.map((skill, id) => (
+                    <div
+                      key={id}
+                      className="flex flex-col items-center gap-2 min-w-[80px] self-center"
+                    >
+                      <Image
+                        src={skill.icon}
+                        alt={skill.name}
+                        width={60}
+                        height={60}
+                      />
+                      <span className="text-xs text-center font-sans">{skill.name}</span>
+                    </div>
+                  ))}
+                </InfiniteCarousel>
               </Card>
             </div>
 
