@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-(--white) text-(--black) font-sans">
+    <div className="flex min-h-screen items-center justify-center text-(--white) font-sans">
       <main className="flex min-h-dvh w-full p-20 justify-between gap-5">
         {/* left column */}
         <section className="flex flex-col justify-between w-1/2 min-h-full">
