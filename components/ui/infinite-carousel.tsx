@@ -1,13 +1,13 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 
 interface InfiniteCarouselProps {
     children: ReactNode;
     speed?: number; // durata in secondi per un ciclo completo
 }
 
-export default function InfiniteCarousel({
+const InfiniteCarousel = memo(function InfiniteCarousel({
     children,
     speed = 20
 }: InfiniteCarouselProps) {
@@ -25,4 +25,7 @@ export default function InfiniteCarousel({
             </div>
         </div>
     );
-}
+})
+
+InfiniteCarousel.displayName = "InfiniteCarousel"
+export default InfiniteCarousel

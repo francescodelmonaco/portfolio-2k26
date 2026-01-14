@@ -6,10 +6,63 @@ import AboutSection from "@/components/about-section";
 import SkillsSection from "@/components/skills-section";
 import ContactsSection from "@/components/contacts-section";
 import ProjectsSection from "@/components/projects-section";
+import { useMemo } from "react";
 
 export default function Home() {
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Francesco Delmonaco",
+    "jobTitle": "Full Stack Web Developer",
+    "url": "https://francescodelmonaco.dev",
+    "sameAs": [
+      "https://github.com/francescodelmonaco",
+      "https://linkedin.com/in/francescodelmonaco"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Brescia",
+      "addressCountry": "IT"
+    },
+    "email": "francescodelmonaco1999@gmail.com",
+    "knowsAbout": [
+      "React",
+      "Next.js",
+      "JavaScript",
+      "TypeScript",
+      "Tailwind CSS",
+      "Node.js",
+      "Express",
+      "MySQL",
+      "PostgreSQL",
+      "Supabase"
+    ]
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Francesco Delmonaco Portfolio",
+    "url": "https://francescodelmonaco.dev",
+    "description": "Portfolio personale di Francesco Delmonaco, Full Stack Web Developer specializzato in React, Next.js e tecnologie web moderne",
+    "author": {
+      "@type": "Person",
+      "name": "Francesco Delmonaco"
+    },
+    "inLanguage": "it-IT"
+  };
+
   return (
     <div className="relative min-h-screen w-full">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
       {/* wallpaper */}
       <div className="absolute inset-0 -z-10">
         <Silk

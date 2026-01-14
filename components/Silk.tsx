@@ -1,6 +1,6 @@
 "use client";
 
-import React, { forwardRef, useMemo, useRef, useLayoutEffect } from 'react';
+import React, { forwardRef, useMemo, useRef, useLayoutEffect, useCallback, memo } from 'react';
 import { Canvas, useFrame, useThree, RootState } from '@react-three/fiber';
 import { Color, Mesh, ShaderMaterial } from 'three';
 
@@ -89,7 +89,7 @@ interface SilkPlaneProps {
   uniforms: SilkUniforms;
 }
 
-const SilkPlane = forwardRef<Mesh, SilkPlaneProps>(function SilkPlane({ uniforms }, ref) {
+const SilkPlane = memo(forwardRef<Mesh, SilkPlaneProps>(function SilkPlane({ uniforms }, ref) {
   const { viewport } = useThree();
 
   useLayoutEffect(() => {
@@ -99,7 +99,7 @@ const SilkPlane = forwardRef<Mesh, SilkPlaneProps>(function SilkPlane({ uniforms
     }
   }, [ref, viewport]);
 
-  useFrame((_state: RootState, delta: number) => {
+  useFrame(useCallback((_state: RootState, delta: number) => {
     const mesh = ref as React.MutableRefObject<Mesh | null>;
     if (mesh.current) {
       const material = mesh.current.material as ShaderMaterial & {
@@ -107,7 +107,7 @@ const SilkPlane = forwardRef<Mesh, SilkPlaneProps>(function SilkPlane({ uniforms
       };
       material.uniforms.uTime.value += 0.1 * delta;
     }
-  });
+  }, [ref]));
 
   return (
     <mesh ref={ref}>
@@ -115,7 +115,8 @@ const SilkPlane = forwardRef<Mesh, SilkPlaneProps>(function SilkPlane({ uniforms
       <shaderMaterial uniforms={uniforms} vertexShader={vertexShader} fragmentShader={fragmentShader} />
     </mesh>
   );
-});
+}))
+
 SilkPlane.displayName = 'SilkPlane';
 
 export interface SilkProps {
@@ -126,7 +127,7 @@ export interface SilkProps {
   rotation?: number;
 }
 
-const Silk: React.FC<SilkProps> = ({ speed = 5, scale = 1, color = '#7B7481', noiseIntensity = 1.5, rotation = 0 }) => {
+const Silk = memo(function Silk({ speed = 5, scale = 1, color = '#7B7481', noiseIntensity = 1.5, rotation = 0 }: SilkProps) {
   const meshRef = useRef<Mesh>(null);
 
   const uniforms = useMemo<SilkUniforms>(
@@ -146,6 +147,7 @@ const Silk: React.FC<SilkProps> = ({ speed = 5, scale = 1, color = '#7B7481', no
       <SilkPlane ref={meshRef} uniforms={uniforms} />
     </Canvas>
   );
-};
+}) as React.FC<SilkProps>
 
+Silk.displayName = "Silk"
 export default Silk;

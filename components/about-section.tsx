@@ -1,8 +1,9 @@
+import { memo } from "react";
 import Image from "next/image"
 import Card from "./ui/card";
 import ProfileImage from "../public/img/foto-profilo.png";
 
-export default function AboutSection() {
+const AboutSection = memo(function AboutSection() {
     return (
         <div className="flex flex-col gap-1 h-1/2">
             <span className="text-xl font-bold">about</span>
@@ -13,6 +14,8 @@ export default function AboutSection() {
                     alt="Foto profilo di Francesco Delmonaco"
                     width={100}
                     height={100}
+                    priority
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="w-full lg:w-1/2 rounded-lg h-full object-cover"
                 />
 
@@ -27,4 +30,7 @@ export default function AboutSection() {
             </Card>
         </div>
     )
-}
+})
+
+AboutSection.displayName = "AboutSection"
+export default AboutSection

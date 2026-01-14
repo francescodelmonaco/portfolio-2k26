@@ -1,6 +1,7 @@
 import Link from "next/link"
+import { memo } from "react"
 
-export default function ContactCard({ link, children }: { link: string, children: React.ReactNode }) {
+const ContactCard = memo(function ContactCard({ link, children }: { link: string, children: React.ReactNode }) {
     return (
         <Link
             href={link}
@@ -10,4 +11,7 @@ export default function ContactCard({ link, children }: { link: string, children
             {children}
         </Link>
     )
-}
+})
+
+ContactCard.displayName = "ContactCard"
+export default ContactCard
