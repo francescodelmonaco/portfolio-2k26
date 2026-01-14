@@ -24,7 +24,7 @@ export default function ProjectsSection() {
                                         alt={`${project.title} screenshot`}
                                         width={50}
                                         height={50}
-                                        className="rounded-lg object-cover w-1/3 h-50"
+                                        className="rounded object-cover w-1/3 h-50"
                                     />
                                 )}
 

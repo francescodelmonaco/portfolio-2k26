@@ -5,7 +5,7 @@ import { skills } from "@/lib/data";
 
 export default function SkillsSection() {
     return (
-        <div className="flex flex-col gap-1 h-1/4">
+        <div className="flex flex-col gap-1 max-h-1/7">
             <span className="text-xl font-bold">skills</span>
 
             <Card className="px-0">
@@ -14,14 +14,14 @@ export default function SkillsSection() {
                         skills.map((skill, id) => (
                             <div
                                 key={id}
-                                className="min-h-full"
+                                className="h-full flex items-center justify-center"
                             >
                                 <Image
                                     src={skill.icon}
                                     alt={skill.name}
-                                    width={80}
-                                    height={80}
-                                    className="h-full"
+                                    width={20}
+                                    height={20}
+                                    className="h-full w-auto object-contain"
                                 />
                             </div>
                         ))

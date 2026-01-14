@@ -4,7 +4,7 @@ import ContactCard from "./ui/contact-card";
 
 export default function ContactsSection() {
     return (
-        <div className="flex flex-col gap-1 h-1/4">
+        <div className="flex flex-col gap-1 h-1/4 mt-7">
             <span className="text-xl font-bold">contacts</span>
 
             <Card className="flex items-center justify-between gap-3">
