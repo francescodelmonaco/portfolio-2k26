@@ -24,16 +24,16 @@ export default function ProjectsSection() {
                                         alt={`${project.title} screenshot`}
                                         width={50}
                                         height={50}
-                                        className="rounded object-cover w-1/3 h-50"
+                                        className="rounded object-cover w-1/3 h-50 hidden lg:block"
                                     />
                                 )}
 
-                                <div className={`${project.screen ? "w-2/3" : "w-full"} flex flex-col justify-between`}>
+                                <div className={`${project.screen ? "lg:w-2/3" : "w-full"} flex flex-col justify-between gap-2 lg:gap-0`}>
                                     <span className="text-2xl font-bold mb-2">{project.title}</span>
 
                                     <p className="text-gray-400 mb-2">{project.description}</p>
 
-                                    <div className="flex gap-2 mb-2">
+                                    <div className="flex gap-2 mb-2 flex-wrap">
                                         {project.tech.map((tech, index) => (
                                             <span
                                                 key={index}

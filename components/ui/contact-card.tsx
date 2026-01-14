@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export default function ContactCard({link, children}: {link: string, children: React.ReactNode}) {
+export default function ContactCard({ link, children }: { link: string, children: React.ReactNode }) {
     return (
         <Link
             href={link}

@@ -53,20 +53,6 @@ export const projects = [
         link: 'https://pa-conventions.vercel.app/',
         type: 'Frontend + Backend'
     },
-    /* {
-        title: 'Travel Journal',
-        description: 'Applicazione full-stack per la gestione di un diario di viaggio con autenticazione utenti e database.',
-        tech: ['React', 'Tailwind', 'Supabase'],
-        github: 'https://github.com/francescodelmonaco/travel-journal-app',
-        type: 'Frontend + Backend'
-    }, */
-    /* {
-        title: 'VinylMatch',
-        description: 'Piattaforma frontend per la ricerca e il matching di vinili musicali con interfaccia moderna.',
-        tech: ['React', 'Bootstrap'],
-        github: 'https://github.com/francescodelmonaco/progetto-finale-spec-frontend-front',
-        type: 'Frontend'
-    }, */
     {
         title: 'Kick Shop',
         description: 'E-commerce completo per la vendita di prodotti calcistici con gestione carrello/preferiti, visualizzazione in griglia o lista e sistema di pagamento.',

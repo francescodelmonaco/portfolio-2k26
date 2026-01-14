@@ -14,7 +14,7 @@ export default function SkillsSection() {
                         skills.map((skill, id) => (
                             <div
                                 key={id}
-                                className="h-full flex items-center justify-center"
+                                className="h-15 lg:h-full flex items-center justify-center"
                             >
                                 <Image
                                     src={skill.icon}
