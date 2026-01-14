@@ -6,7 +6,6 @@ import AboutSection from "@/components/about-section";
 import SkillsSection from "@/components/skills-section";
 import ContactsSection from "@/components/contacts-section";
 import ProjectsSection from "@/components/projects-section";
-import { useMemo } from "react";
 
 export default function Home() {
   const personSchema = {
@@ -63,6 +62,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
+
       {/* wallpaper */}
       <div className="absolute inset-0 -z-10">
         <Silk

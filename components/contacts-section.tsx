@@ -24,8 +24,8 @@ const ContactsSection = memo(function ContactsSection() {
     ], []);
 
     return (
-        <div className="flex flex-col gap-1 h-1/4 lg:mt-7">
-            <span className="text-xl font-bold">contacts</span>
+        <div className="flex flex-col gap-1 h-1/4 lg:mt-7 xl:mt-0">
+            <span className="text-xl font-bold font-mono">contacts</span>
 
             <Card className="flex items-center justify-between gap-3">
                 {contacts.map((contact, index) => (

@@ -6,7 +6,7 @@ import ProfileImage from "../public/img/foto-profilo.png";
 const AboutSection = memo(function AboutSection() {
     return (
         <div className="flex flex-col gap-1 h-1/2">
-            <span className="text-xl font-bold">about</span>
+            <span className="text-xl font-bold font-mono">about</span>
 
             <Card className="flex items-center justify-between flex-col lg:flex-row gap-10 lg:gap-2">
                 <Image
@@ -23,8 +23,8 @@ const AboutSection = memo(function AboutSection() {
                     <span className="text-4xl font-bold">Francesco Delmonaco</span>
 
                     <div className="flex flex-col gap-1 pb-5 lg:pb-0">
-                        <p className="text-gray-400">Full Stack Web Developer</p>
-                        <p className="text-gray-400">Based in Brescia 🇮🇹</p>
+                        <p className="text-gray-400 font-mono">Full Stack Web Developer</p>
+                        <p className="text-gray-400 font-mono">Based in Brescia 🇮🇹</p>
                     </div>
                 </div>
             </Card>

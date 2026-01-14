@@ -9,7 +9,7 @@ const SkillsSection = memo(function SkillsSection() {
 
     return (
         <div className="flex flex-col gap-1 max-h-1/7">
-            <span className="text-xl font-bold">skills</span>
+            <span className="text-xl font-bold font-mono">skills</span>
 
             <Card className="px-0">
                 <InfiniteCarousel speed={20}>

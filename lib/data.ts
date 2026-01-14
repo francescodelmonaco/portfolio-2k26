@@ -55,7 +55,7 @@ export const projects = [
     },
     {
         title: 'Kick Shop',
-        description: 'E-commerce completo per la vendita di prodotti calcistici con gestione carrello/preferiti, visualizzazione in griglia o lista e sistema di pagamento.',
+        description: 'E-commerce completo per la vendita di prodotti calcistici con gestione carrello/preferiti, visualizzazione in griglia o lista e simulazione di pagamento con Stripe.',
         tech: ['React', 'Node.js', 'Express', 'MySQL'],
         github: 'https://github.com/francescodelmonaco/kick-shop',
         type: 'Frontend + Backend'
