@@ -12,6 +12,10 @@ import mysqlIcon from '../public/icons/mysql.svg';
 import supabaseIcon from '../public/icons/supabase.svg';
 import postgresqlIcon from '../public/icons/postgresql.svg';
 
+// projects images
+import scoreBoardScreen from '../public/screen/score-board-screen.png';
+import pocketGarageScreen from '../public/screen/pocket-garage-screen.png';
+
 export const skills: { name: string, icon: string }[] = [
     { name: 'React', icon: reactIcon },
     { name: 'Next.js', icon: nextIcon },
@@ -23,4 +27,51 @@ export const skills: { name: string, icon: string }[] = [
     { name: 'MySQL', icon: mysqlIcon },
     { name: 'PostgreSQL', icon: postgresqlIcon },
     { name: 'Supabase', icon: supabaseIcon },
+];
+
+export const projects = [
+    {
+        title: 'Score Board',
+        description: 'PWA completa per la gestione di statistiche, giocatori e flussi di cassa di squadre sportive amatoriali.',
+        tech: ['Next.js', 'Tailwind', 'Supabase'],
+        link: 'https://score-board-gray.vercel.app/',
+        type: 'Frontend + Backend',
+        screen: scoreBoardScreen
+    },
+    {
+        title: 'Pocket Garage',
+        description: 'Gestionale completo per il monitoraggio di veicoli: scadenze, manutenzioni, rifornimenti, assicurazioni e bolli.',
+        tech: ['Next.js', 'Tailwind', 'Supabase', 'Shadcn'],
+        link: 'https://pocket-garage.vercel.app/',
+        type: 'Frontend + Backend',
+        screen: pocketGarageScreen
+    },
+    {
+        title: 'Convenzioni Poliambulanza',
+        description: 'PWA sviluppata per semplificare la ricerca delle attività convenzionate con l\'Istituto Ospedaliero Poliambulanza di Brescia. Applicazione web progressiva ottimizzata per mobile.',
+        tech: ['React', 'Tailwind', 'Supabase'],
+        link: 'https://pa-conventions.vercel.app/',
+        type: 'Frontend + Backend'
+    },
+    /* {
+        title: 'Travel Journal',
+        description: 'Applicazione full-stack per la gestione di un diario di viaggio con autenticazione utenti e database.',
+        tech: ['React', 'Tailwind', 'Supabase'],
+        github: 'https://github.com/francescodelmonaco/travel-journal-app',
+        type: 'Frontend + Backend'
+    }, */
+    /* {
+        title: 'VinylMatch',
+        description: 'Piattaforma frontend per la ricerca e il matching di vinili musicali con interfaccia moderna.',
+        tech: ['React', 'Bootstrap'],
+        github: 'https://github.com/francescodelmonaco/progetto-finale-spec-frontend-front',
+        type: 'Frontend'
+    }, */
+    {
+        title: 'Kick Shop',
+        description: 'E-commerce completo per la vendita di prodotti calcistici con gestione carrello/preferiti, visualizzazione in griglia o lista e sistema di pagamento.',
+        tech: ['React', 'Node.js', 'Express', 'MySQL'],
+        github: 'https://github.com/francescodelmonaco/kick-shop',
+        type: 'Frontend + Backend'
+    },
 ];

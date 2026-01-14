@@ -96,6 +96,8 @@
   backdrop-filter: url("#glass-filter-«r25R1»") saturate(1);
 }
 
+
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -127,7 +129,6 @@
 .pause-animation:hover {
   animation-play-state: paused;
 }
-
 
 .dark {
   --background: oklch(0.145 0 0);
@@ -166,6 +167,15 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
   }
 
   body {
