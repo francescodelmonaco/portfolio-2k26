@@ -6,7 +6,7 @@ const ContactCard = memo(function ContactCard({ link, children }: { link: string
         <Link
             href={link}
             target="_blank"
-            className="bg-(--white)/10 hover:bg-(--white)/20 transition-all duration-300 p-5 w-1/4 rounded-lg h-full cursor-pointer hover:scale-102 hover:shadow-lg flex items-center justify-center"
+            className="glass-panel w-full h-full rounded-2xl flex items-center justify-center text-white/70 hover:text-white"
         >
             {children}
         </Link>

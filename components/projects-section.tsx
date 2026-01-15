@@ -44,7 +44,7 @@ const ProjectsSection = memo(function ProjectsSection() {
                         <Link
                             href={project.link || project.github || ""}
                             target="_blank"
-                            className="bg-(--white)/10 hover:bg-(--white)/20 transition-all duration-300 p-5 rounded-lg w-full cursor-pointer hover:scale-102 hover:shadow-lg flex flex-col items-center justify-center xl:h-70"
+                            className="p-5 rounded-lg w-full cursor-pointer flex flex-col items-center justify-center xl:h-70 glass-panel hover:glass-panel"
                             key={id}
                         >
                             <div className="flex justify-between gap-5 w-full">

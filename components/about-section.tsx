@@ -5,7 +5,7 @@ import ProfileImage from "../public/img/foto-profilo.png";
 
 const AboutSection = memo(function AboutSection() {
     return (
-        <div className="flex flex-col gap-1 h-1/2">
+        <div className="flex flex-col gap-1 h-1/3">
             <span className="text-xl font-bold font-mono">about</span>
 
             <Card className="flex items-center justify-between flex-col lg:flex-row gap-10 lg:gap-2">

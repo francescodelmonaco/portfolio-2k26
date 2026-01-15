@@ -77,7 +77,7 @@ export default function Home() {
       <div className="flex min-h-screen lg:h-dvh items-center justify-center text-(--white) font-sans">
         <main className="flex flex-col lg:flex-row min-h-screen lg:h-dvh w-full p-5 lg:p-20 justify-between gap-5">
           {/* left column */}
-          <section className="flex flex-col justify-between w-full lg:w-1/2 min-h-full gap-5 lg:gap-0">
+          <section className="flex flex-col justify-between w-full lg:w-1/2 min-h-full gap-5 sm:gap-10">
             <AboutSection />
             <SkillsSection />
             <ContactsSection />

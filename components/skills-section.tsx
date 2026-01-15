@@ -8,7 +8,7 @@ const SkillsSection = memo(function SkillsSection() {
     const memoizedSkills = useMemo(() => skills, []);
 
     return (
-        <div className="flex flex-col gap-1 max-h-1/7">
+        <div className="flex flex-col gap-1 h-1/6">
             <span className="text-xl font-bold font-mono">skills</span>
 
             <Card className="px-0">
