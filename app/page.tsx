@@ -1,5 +1,6 @@
 // components
 import Silk from "../components/Silk";
+import Footer from "@/components/footer";
 
 //sections
 import AboutSection from "@/components/about-section";
@@ -74,8 +75,8 @@ export default function Home() {
         />
       </div>
 
-      <div className="flex flex-col min-h-screen lg:h-dvh items-center justify-center text-(--white) font-sans">
-        <main className="flex flex-col lg:flex-row min-h-screen lg:h-dvh w-full justify-between gap-5 p-5 lg:p-10">
+      <div className="flex flex-col min-h-screen lg:h-dvh items-center justify-between text-(--white) font-sans">
+        <main className="flex flex-col lg:flex-row w-full flex-1 justify-between gap-5 p-5 lg:p-10 overflow-auto pb-6">
           {/* left column */}
           <section className="flex flex-col justify-between w-full lg:w-1/2 min-h-full gap-5 sm:gap-10">
             <AboutSection />
@@ -89,9 +90,7 @@ export default function Home() {
           </section>
         </main>
 
-        <footer>
-          <p className="text-sm -mt-5 mb-10">© {new Date().getFullYear()} Francesco Delmonaco. All rights reserved.</p>
-        </footer>
+        <Footer />
       </div>
     </div>
   );
