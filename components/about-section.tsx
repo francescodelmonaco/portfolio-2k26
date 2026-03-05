@@ -9,7 +9,7 @@ const AboutSection = memo(function AboutSection() {
             <span className="text-xl font-bold font-mono">about</span>
 
             <Card className="flex items-center justify-between flex-col lg:flex-row gap-10 lg:gap-2">
-                <Image
+                {/* <Image
                     src={ProfileImage}
                     alt="Foto profilo di Francesco Delmonaco"
                     width={100}
@@ -17,12 +17,12 @@ const AboutSection = memo(function AboutSection() {
                     priority
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="w-full lg:w-1/2 rounded-lg h-full object-cover"
-                />
+                /> */}
 
-                <div className="flex flex-col justify-center gap-10 text-center w-full lg:w-1/2">
+                <div className="flex flex-col justify-center gap-10 text-center w-full py-10">
                     <span className="text-4xl font-bold">Francesco Delmonaco</span>
 
-                    <div className="flex flex-col gap-1 pb-5 lg:pb-0">
+                    <div className="flex flex-col gap-1">
                         <p className="text-gray-400 font-mono">Full Stack Web Developer</p>
                         <p className="text-gray-400 font-mono">Based in Brescia 🇮🇹</p>
                     </div>
