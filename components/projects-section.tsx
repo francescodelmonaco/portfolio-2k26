@@ -1,6 +1,6 @@
 import { memo, useMemo } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import Card from "./ui/card";
 import { projects } from "@/lib/data";
 
@@ -26,8 +26,8 @@ const ProjectsSection = memo(function ProjectsSection() {
     const memoizedProjects = useMemo(() => projects, []);
 
     return (
-        <div className="flex flex-col gap-1 flex-1 min-h-0">
-            {/* JSON-LD Structured Data for Projects */}
+        <div className="flex flex-col gap-3 flex-1 min-h-0">
+            {/* JSON-LD */}
             {projectSchemas.map((schema, index) => (
                 <script
                     key={index}
@@ -36,50 +36,64 @@ const ProjectsSection = memo(function ProjectsSection() {
                 />
             ))}
 
-            <span className="text-xl font-bold font-mono">projects</span>
+            {/* section label */}
+            <div className="flex items-center gap-3">
+                <span className="text-[12px] font-mono tracking-[0.25em] uppercase text-(--gray)">— Projects</span>
+                <div className="h-px flex-1 bg-white/[0.07]" />
+            </div>
 
-            <Card className="flex flex-col items-center justify-between gap-3 overflow-y-auto h-full">
-                {
-                    memoizedProjects.map((project, id) => (
-                        <Link
-                            href={project.link || project.github || ""}
-                            target="_blank"
-                            className="p-5 rounded-lg w-full cursor-pointer flex flex-col items-center justify-center xl:h-70 glass-panel hover:glass-panel"
-                            key={id}
-                        >
-                            <div className="flex justify-between gap-5 w-full">
-                                {project.screen && (
-                                    <Image
-                                        src={project.screen}
-                                        alt={`${project.title} screenshot`}
-                                        width={50}
-                                        height={50}
-                                        loading="lazy"
-                                        sizes="(max-width: 1024px) 50vw, 33vw"
-                                        className="rounded object-cover w-1/3 h-50 hidden lg:block"
-                                    />
-                                )}
-
-                                <div className={`${project.screen ? "lg:w-2/3" : "w-full"} flex flex-col justify-between gap-2 lg:gap-0`}>
-                                    <span className="text-2xl font-bold mb-2">{project.title}</span>
-
-                                    <p className="text-gray-400 font-mono mb-2">{project.description}</p>
-
-                                    <div className="flex gap-2 mb-2 flex-wrap">
-                                        {project.tech.map((tech, index) => (
-                                            <span
-                                                key={index}
-                                                className="bg-(--white)/10 px-2 py-1 rounded-full text-xs font-mono"
-                                            >
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
+            <Card className="flex flex-col gap-4 overflow-y-auto h-full p-4">
+                {memoizedProjects.map((project, id) => (
+                    <Link
+                        href={project.link || project.github || ""}
+                        target="_blank"
+                        className="group glass-panel rounded-lg p-5 w-full cursor-pointer flex flex-col gap-4"
+                        key={id}
+                    >
+                        {/* header row */}
+                        <div className="flex items-start justify-between gap-4">
+                            <div className="flex items-start gap-4 flex-1 min-w-0">
+                                {/* large number */}
+                                <span
+                                    className="font-display text-5xl font-bold leading-none select-none shrink-0"
+                                    style={{ color: 'rgba(255,255,255,0.06)' }}
+                                >
+                                    {String(id + 1).padStart(2, '0')}
+                                </span>
+                                <div className="flex flex-col gap-1 min-w-0">
+                                    <h3 className="font-display text-lg font-semibold text-(--white) group-hover:text-(--blue) transition-colors leading-tight">
+                                        {project.title}
+                                    </h3>
+                                    <span className="text-[12px] font-mono tracking-widest uppercase text-(--gray) opacity-60">
+                                        {project.type}
+                                    </span>
                                 </div>
                             </div>
-                        </Link>
-                    ))
-                }
+                            <ArrowUpRight
+                                className="shrink-0 mt-1 transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                style={{ color: 'var(--blue)' }}
+                                size={18}
+                            />
+                        </div>
+
+                        {/* description */}
+                        <p className="text-[16px] font-sans leading-[1.7] text-(--gray) line-clamp-2">
+                            {project.description}
+                        </p>
+
+                        {/* tech stack */}
+                        <div className="flex gap-1.5 flex-wrap">
+                            {project.tech.map((tech, index) => (
+                                <span
+                                    key={index}
+                                    className="text-[12px] font-mono px-2.5 py-1 rounded-full border border-white/[0.07] text-(--gray)"
+                                >
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+                    </Link>
+                ))}
             </Card>
         </div>
     )

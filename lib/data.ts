@@ -21,7 +21,7 @@ export const skills: { name: string, icon: string }[] = [
     { name: 'Next.js', icon: nextIcon },
     { name: 'JavaScript', icon: javascriptIcon },
     { name: 'TypeScript', icon: typescriptIcon },
-    { name: 'Tailwind CSS', icon: tailwindIcon },
+    { name: 'Tailwind', icon: tailwindIcon },
     { name: 'Node.js', icon: nodeIcon },
     { name: 'Express', icon: expressIcon },
     { name: 'MySQL', icon: mysqlIcon },
@@ -36,7 +36,7 @@ export const projects = [
         tech: ['Next.js', 'Tailwind', 'Supabase'],
         link: 'https://score-board-gray.vercel.app/',
         type: 'Frontend + Backend',
-        screen: scoreBoardScreen
+        // screen: scoreBoardScreen
     },
     {
         title: 'Pocket Garage',
@@ -44,7 +44,7 @@ export const projects = [
         tech: ['Next.js', 'Tailwind', 'Supabase', 'Shadcn'],
         link: 'https://pocket-garage.vercel.app/',
         type: 'Frontend + Backend',
-        screen: pocketGarageScreen
+        // screen: pocketGarageScreen
     },
     {
         title: 'Convenzioni Poliambulanza',

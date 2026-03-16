@@ -3,37 +3,47 @@ import { Github, Linkedin, FileUser, Mail } from "lucide-react";
 import Card from "./ui/card";
 import ContactCard from "./ui/contact-card";
 
-const ContactsSection = memo(function ContactsSection() {
+const ContactsSection = memo(function ContactsSection({ className = "" }: { className?: string }) {
     const contacts = useMemo(() => [
         {
             link: "https://github.com/francescodelmonaco",
-            icon: <Github className="w-5 lg:w-10 h-5 lg:h-10" />
+            icon: <Github size={40} />,
+            label: "GitHub"
         },
         {
             link: "https://linkedin.com/in/francescodelmonaco",
-            icon: <Linkedin className="w-5 lg:w-10 h-5 lg:h-10" />
+            icon: <Linkedin size={40} />,
+            label: "LinkedIn"
         },
         {
             link: "/documents/cv-francesco-delmonaco.pdf",
-            icon: <FileUser className="w-5 lg:w-10 h-5 lg:h-10" />
+            icon: <FileUser size={40} />,
+            label: "CV"
         },
         {
             link: "mailto:francescodelmonaco1999@gmail.com",
-            icon: <Mail className="w-5 lg:w-10 h-5 lg:h-10" />
+            icon: <Mail size={40} />,
+            label: "Email"
         }
     ], []);
 
     return (
-        <div className="flex flex-col gap-1 h-35 lg:h-1/3">
-            <span className="text-xl font-bold font-mono">contacts</span>
+        <div className={`flex flex-col gap-3 ${className}`}>
+            {/* section label */}
+            <div className="flex items-center gap-3">
+                <span className="text-[12px] font-mono tracking-[0.25em] uppercase text-(--gray)">03 / Contacts</span>
+                <div className="h-px flex-1 bg-white/[0.07]" />
+            </div>
 
-            <Card className="flex items-center justify-between gap-3">
+            <Card className="grid grid-cols-2 md:flex items-stretch justify-between gap-4 py-4">
                 {contacts.map((contact, index) => (
                     <ContactCard
                         key={index}
                         link={contact.link}
-                        children={contact.icon}
-                    />
+                        label={contact.label}
+                    >
+                        {contact.icon}
+                    </ContactCard>
                 ))}
             </Card>
         </div>

@@ -67,25 +67,30 @@ export default function Home() {
       {/* wallpaper */}
       <div className="absolute inset-0 -z-10">
         <Silk
-          speed={5}
+          speed={4}
           scale={1}
-          color="#050647"
-          noiseIntensity={1.5}
+          color="#030215"
+          noiseIntensity={1.2}
           rotation={0}
         />
       </div>
+      {/* grain overlay for texture */}
+      <div
+        className="absolute inset-0 -z-10 pointer-events-none opacity-[0.035]"
+        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'1\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat', backgroundSize: '200px 200px' }}
+      />
 
       <div className="flex flex-col min-h-screen lg:h-dvh items-center justify-between text-(--white) font-sans">
-        <main className="flex flex-col lg:flex-row w-full flex-1 justify-between gap-5 p-5 lg:p-10 overflow-auto pb-6">
+        <main className="flex flex-col lg:flex-row w-full flex-1 justify-between gap-4 p-4 lg:p-8 overflow-auto pb-4">
           {/* left column */}
-          <section className="flex flex-col justify-between w-full lg:w-1/2 min-h-full gap-5 sm:gap-10">
-            <AboutSection />
-            <SkillsSection />
-            <ContactsSection />
+          <section className="flex flex-col w-full lg:w-1/2 min-h-full lg:h-full gap-4">
+            <AboutSection className="lg:grow-[2]" />
+            <SkillsSection className="lg:flex-1 lg:min-h-0" />
+            <ContactsSection className="lg:flex-1 lg:min-h-0" />
           </section>
 
           {/* right column */}
-          <section className="flex flex-col justify-between w-full lg:w-1/2 min-h-full">
+          <section className="flex flex-col w-full lg:w-1/2 min-h-full">
             <ProjectsSection />
           </section>
         </main>

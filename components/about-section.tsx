@@ -1,31 +1,34 @@
 import { memo } from "react";
-import Image from "next/image"
 import Card from "./ui/card";
-import ProfileImage from "../public/img/foto-profilo.png";
 
-const AboutSection = memo(function AboutSection() {
+const AboutSection = memo(function AboutSection({ className = "" }: { className?: string }) {
     return (
-        <div className="flex flex-col gap-1 h-1/3">
-            <span className="text-xl font-bold font-mono">about</span>
+        <div className={`flex flex-col gap-3 flex-1 min-h-0 ${className}`}>
+            {/* section label bar */}
+            <div className="flex items-center gap-3">
+                <span className="text-[12px] font-mono tracking-[0.25em] uppercase text-(--gray)">01 / About</span>
+                <div className="h-px flex-1 bg-white/[0.07]" />
+            </div>
 
-            <Card className="flex items-center justify-between flex-col lg:flex-row gap-10 lg:gap-2">
-                {/* <Image
-                    src={ProfileImage}
-                    alt="Foto profilo di Francesco Delmonaco"
-                    width={100}
-                    height={100}
-                    priority
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="w-full lg:w-1/2 rounded-lg h-full object-cover"
-                /> */}
+            <Card className="flex flex-col justify-center gap-4 p-7">
+                {/* identity */}
+                <h1 className="font-display text-4xl md:text-6xl font-bold leading-[0.88] tracking-tight text-(--white)">
+                    Francesco<br />
+                    <span className="text-(--blue)">Delmonaco</span>
+                </h1>
+                <p className="text-[12px] md:text-[16px] font-mono tracking-[0.3em] uppercase text-(--gray)">
+                    Full Stack Web Developer
+                </p>
 
-                <div className="flex flex-col justify-center gap-10 text-center w-full py-10">
-                    <span className="text-4xl font-bold">Francesco Delmonaco</span>
-
-                    <div className="flex flex-col gap-1">
-                        <p className="text-gray-400 font-mono">Full Stack Web Developer</p>
-                        <p className="text-gray-400 font-mono">Based in Brescia 🇮🇹</p>
-                    </div>
+                {/* meta chips */}
+                <div className="flex flex-wrap gap-2">
+                    <span className="inline-flex items-center gap-1.5 text-[12px] font-mono px-3 py-1.5 rounded-full border border-white/8 text-(--gray) flex-wrap">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                        </span>
+                        Brescia, Italia 🇮🇹
+                    </span>
                 </div>
             </Card>
         </div>
