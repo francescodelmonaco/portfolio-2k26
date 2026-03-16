@@ -38,7 +38,7 @@ const ProjectsSection = memo(function ProjectsSection() {
 
             {/* section label */}
             <div className="flex items-center gap-3">
-                <span className="text-[12px] font-mono tracking-[0.25em] uppercase text-(--gray)">— Projects</span>
+                <span className="text-[12px] font-mono tracking-[0.25em] uppercase text-(--gray)">04 / Projects</span>
                 <div className="h-px flex-1 bg-white/[0.07]" />
             </div>
 

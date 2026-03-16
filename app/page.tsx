@@ -84,7 +84,7 @@ export default function Home() {
         <main className="flex flex-col lg:flex-row w-full flex-1 justify-between gap-4 p-4 lg:p-8 overflow-auto pb-4">
           {/* left column */}
           <section className="flex flex-col w-full lg:w-1/2 min-h-full lg:h-full gap-4">
-            <AboutSection className="lg:grow-[2]" />
+            <AboutSection className="lg:grow-2" />
             <SkillsSection className="lg:flex-1 lg:min-h-0" />
             <ContactsSection className="lg:flex-1 lg:min-h-0" />
           </section>
