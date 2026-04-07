@@ -77,7 +77,7 @@ const ProjectsSection = memo(function ProjectsSection() {
                         </div>
 
                         {/* description */}
-                        <p className="text-[16px] font-sans leading-[1.7] text-(--gray) line-clamp-2">
+                        <p className="text-[16px] font-sans leading-[1.7] text-(--gray)">
                             {project.description}
                         </p>
 

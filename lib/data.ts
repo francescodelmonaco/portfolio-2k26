@@ -31,6 +31,13 @@ export const skills: { name: string, icon: string }[] = [
 
 export const projects = [
     {
+        title: 'Alberi di Vita OdV',
+        description: 'Ristrutturazione completa del sito vetrina per l\'organizzazione non profit, focalizzata sulla modernizzazione dell\'immagine web e sulla chiarezza informativa. Sviluppo frontend fully responsive (mobile-first) con deploy ottimizzato su Vercel.',
+        tech: ['Next.js', 'Tailwind'],
+        link: 'https://alberi-di-vita-odv.vercel.app/',
+        type: 'Frontend'
+    },
+    {
         title: 'Score Board',
         description: 'PWA completa per la gestione di statistiche, giocatori e flussi di cassa di squadre sportive amatoriali.',
         tech: ['Next.js', 'Tailwind', 'Supabase'],
