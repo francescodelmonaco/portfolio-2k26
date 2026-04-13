@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image';
+
 // frontend icons
 import javascriptIcon from '../public/icons/javascript.svg';
 import typescriptIcon from '../public/icons/typescript.svg';
@@ -13,10 +15,26 @@ import supabaseIcon from '../public/icons/supabase.svg';
 import postgresqlIcon from '../public/icons/postgresql.svg';
 
 // projects images
-import scoreBoardScreen from '../public/screen/score-board-screen.png';
-import pocketGarageScreen from '../public/screen/pocket-garage-screen.png';
+import scoreBoardScreen from '../public/screen/score-board-screen.webp';
+import pocketGarageScreen from '../public/screen/pocket-garage-screen.webp';
+import alberiDiVitaScreen from '../public/screen/alberi-di-vita-screen.webp';
 
-export const skills: { name: string, icon: string }[] = [
+export interface Project {
+    title: string;
+    description: string;
+    tech: string[];
+    link?: string;
+    github?: string;
+    type: string;
+    screen?: StaticImageData;
+};
+
+export interface Skill {
+    name: string;
+    icon: string;
+}
+
+export const skills: Skill[] = [
     { name: 'React', icon: reactIcon },
     { name: 'Next.js', icon: nextIcon },
     { name: 'JavaScript', icon: javascriptIcon },
@@ -29,13 +47,14 @@ export const skills: { name: string, icon: string }[] = [
     { name: 'Supabase', icon: supabaseIcon },
 ];
 
-export const projects = [
+export const projects: Project[] = [
     {
         title: 'Alberi di Vita OdV',
-        description: 'Ristrutturazione completa del sito vetrina per l\'organizzazione non profit, focalizzata sulla modernizzazione dell\'immagine web e sulla chiarezza informativa. Sviluppo frontend fully responsive (mobile-first) con deploy ottimizzato su Vercel.',
-        tech: ['Next.js', 'Tailwind'],
+        description: 'Ristrutturazione completa del sito vetrina + CMS + gestionale per l\'organizzazione non profit. Sviluppo full-stack con deploy su Vercel.',
+        tech: ['Next.js', 'TypeScript', 'Shadcn', 'Supabase'],
         link: 'https://alberi-di-vita-odv.vercel.app/',
-        type: 'Frontend'
+        type: 'Frontend + Backend',
+        screen: alberiDiVitaScreen
     },
     {
         title: 'Score Board',
@@ -43,28 +62,21 @@ export const projects = [
         tech: ['Next.js', 'Tailwind', 'Supabase'],
         link: 'https://score-board-gray.vercel.app/',
         type: 'Frontend + Backend',
-        // screen: scoreBoardScreen
+        screen: scoreBoardScreen
     },
     {
         title: 'Pocket Garage',
-        description: 'Gestionale completo per il monitoraggio di veicoli: scadenze, manutenzioni, rifornimenti, assicurazioni e bolli.',
-        tech: ['Next.js', 'Tailwind', 'Supabase', 'Shadcn'],
+        description: 'PWA per il monitoraggio di veicoli: scadenze, manutenzioni, rifornimenti, assicurazioni e bolli.',
+        tech: ['Next.js', 'Tailwind', 'Shadcn', 'Supabase'],
         link: 'https://pocket-garage.vercel.app/',
         type: 'Frontend + Backend',
-        // screen: pocketGarageScreen
+        screen: pocketGarageScreen
     },
-    {
+    /* {
         title: 'Convenzioni Poliambulanza',
         description: 'PWA sviluppata per semplificare la ricerca delle attività convenzionate con l\'Istituto Ospedaliero Poliambulanza di Brescia. Applicazione web progressiva ottimizzata per mobile.',
         tech: ['React', 'Tailwind', 'Supabase'],
         link: 'https://pa-conventions.vercel.app/',
         type: 'Frontend + Backend'
-    },
-    {
-        title: 'Kick Shop',
-        description: 'E-commerce completo per la vendita di prodotti calcistici con gestione carrello/preferiti, visualizzazione in griglia o lista e simulazione di pagamento con Stripe.',
-        tech: ['React', 'Node.js', 'Express', 'MySQL'],
-        github: 'https://github.com/francescodelmonaco/kick-shop',
-        type: 'Frontend + Backend'
-    },
+    } */
 ];
