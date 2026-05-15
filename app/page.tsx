@@ -1,5 +1,5 @@
 // components
-import Silk from "../components/Silk";
+import SilkBackground from "../components/silk-background";
 import Footer from "@/components/footer";
 
 //sections
@@ -66,13 +66,7 @@ export default function Home() {
 
       {/* wallpaper */}
       <div className="absolute inset-0 -z-10">
-        <Silk
-          speed={4}
-          scale={1}
-          color="#030215"
-          noiseIntensity={1.2}
-          rotation={0}
-        />
+        <SilkBackground />
       </div>
       {/* grain overlay for texture */}
       <div

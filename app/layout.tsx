@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, DM_Sans, DM_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -88,7 +89,6 @@ export const metadata: Metadata = {
     shortcut: "/favicon/favicon.ico",
     apple: "/favicon/apple-touch-icon.png", // Crea questa icona (180x180px)
   },
-  manifest: "/favicon/site.webmanifest",
   alternates: {
     canonical: siteUrl,
   },
@@ -113,6 +113,10 @@ export default function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
+        {/* Inject manifest after page load — keeps it off the critical request chain */}
+        <Script id="inject-manifest" strategy="lazyOnload">
+          {`var l=document.createElement('link');l.rel='manifest';l.href='/favicon/site.webmanifest';document.head.appendChild(l);`}
+        </Script>
       </body>
     </html>
   );

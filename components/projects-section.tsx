@@ -48,11 +48,11 @@ const ProjectsSection = memo(function ProjectsSection() {
                     <Link
                         href={project.link || project.github || ""}
                         target="_blank"
-                        className="group relative glass-panel rounded-lg p-5 w-full cursor-pointer flex flex-col gap-5 overflow-hidden transition-all duration-500 hover:border-white/15 hover:bg-white/3 hover:-translate-y-1 hover:shadow-xl shrink-0"
+                        className="group relative glass-panel rounded-lg p-5 w-full cursor-pointer flex flex-col gap-5 overflow-hidden transition-transform duration-500 hover:border-white/15 hover:bg-white/3 hover:-translate-y-1 shrink-0"
                         key={id}
                     >
                         {(project as any).screen && (
-                            <div className="relative w-full h-48 sm:h-56 rounded-[0.5rem] overflow-hidden border border-white/4 bg-[#050508] shrink-0 group-hover:border-white/1 transition-all duration-500 z-10 shadow-lg">
+                            <div className="relative w-full h-48 sm:h-56 rounded-xl overflow-hidden border border-white/4 bg-[#050508] shrink-0 group-hover:border-white/1 transition-all duration-500 z-10 shadow-lg">
                                 <Image
                                     src={(project as any).screen}
                                     alt={`${project.title} screenshot`}
@@ -77,9 +77,9 @@ const ProjectsSection = memo(function ProjectsSection() {
                                         {String(id + 1).padStart(2, '0')}
                                     </span>
                                     <div className="flex flex-col gap-1 min-w-0">
-                                        <h3 className="font-display text-lg font-semibold text-(--white) group-hover:text-(--blue) transition-colors leading-tight">
+                                        <h2 className="font-display text-lg font-semibold text-(--white) group-hover:text-(--blue) transition-colors leading-tight">
                                             {project.title}
-                                        </h3>
+                                        </h2>
                                         <span className="text-[12px] font-mono tracking-widest uppercase text-(--gray) opacity-60">
                                             {project.type}
                                         </span>
