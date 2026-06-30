@@ -1,7 +1,3 @@
-// Pure CSS replacement for the Three.js Silk shader.
-// The shader with color #030215 produces values from near-black → #030215,
-// visually indistinguishable from a static dark gradient at that color.
-// This eliminates the three + @react-three/fiber bundle (~412 KiB).
 export default function SilkBackground() {
     return (
         <div

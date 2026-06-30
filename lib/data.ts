@@ -13,6 +13,8 @@ import expressIcon from '../public/icons/express.svg';
 import mysqlIcon from '../public/icons/mysql.svg';
 import supabaseIcon from '../public/icons/supabase.svg';
 import postgresqlIcon from '../public/icons/postgresql.svg';
+import laravelIcon from '../public/icons/laravel.svg';
+import phpIcon from '../public/icons/php.svg';
 
 // projects images
 import scoreBoardScreen from '../public/screen/score-board-screen.webp';
@@ -42,6 +44,8 @@ export const skills: Skill[] = [
     { name: 'Tailwind', icon: tailwindIcon },
     { name: 'Node.js', icon: nodeIcon },
     { name: 'Express', icon: expressIcon },
+    { name: 'Laravel', icon: laravelIcon },
+    { name: 'PHP', icon: phpIcon },
     { name: 'MySQL', icon: mysqlIcon },
     { name: 'PostgreSQL', icon: postgresqlIcon },
     { name: 'Supabase', icon: supabaseIcon },
