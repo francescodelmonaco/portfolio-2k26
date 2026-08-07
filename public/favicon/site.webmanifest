@@ -1,5 +1,5 @@
 {
-  "name": "Francesco Delmonaco - Sviluppatore Web Full Stack",
+  "name": "Francesco Delmonaco - Sviluppatore full stack",
   "short_name": "FD portfolio",
   "icons": [
     {
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#121212",
-  "background_color": "#121212",
+  "theme_color": "#08080C",
+  "background_color": "#08080C",
   "display": "standalone"
 }

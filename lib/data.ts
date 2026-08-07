@@ -1,86 +1,105 @@
 import { StaticImageData } from 'next/image';
 
-// frontend icons
+// icone frontend
 import javascriptIcon from '../public/icons/javascript.svg';
 import typescriptIcon from '../public/icons/typescript.svg';
 import reactIcon from '../public/icons/react.svg';
 import nextIcon from '../public/icons/next.svg';
 import tailwindIcon from '../public/icons/tailwind.svg';
 
-// backend icons
+// icone backend
 import nodeIcon from '../public/icons/node.svg';
-import expressIcon from '../public/icons/express.svg';
+import expressLightIcon from '../public/icons/expressjs-light.svg';
+import expressDarkIcon from '../public/icons/expressjs-dark.svg';
 import mysqlIcon from '../public/icons/mysql.svg';
 import supabaseIcon from '../public/icons/supabase.svg';
 import postgresqlIcon from '../public/icons/postgresql.svg';
 import laravelIcon from '../public/icons/laravel.svg';
-import phpIcon from '../public/icons/php.svg';
+import phpLightIcon from '../public/icons/php-light.svg';
+import phpDarkIcon from '../public/icons/php-dark.svg';
 
-// projects images
+// icone mobile
+import expoIcon from '../public/icons/expo.svg';
+
+// immagini dei progetti
 import scoreBoardScreen from '../public/screen/score-board-screen.webp';
 import pocketGarageScreen from '../public/screen/pocket-garage-screen.webp';
 import alberiDiVitaScreen from '../public/screen/alberi-di-vita-screen.webp';
 
+/*
+ * Questo file è volutamente indipendente dalla lingua: contiene solo struttura,
+ * asset e link. Ogni stringa che il lettore vede vive in messages/{it,en}.ts,
+ * indicizzata dagli slug qui sotto: il che significa che aggiungere un progetto
+ * qui è un errore di compilazione finché non sono scritte entrambe le
+ * traduzioni.
+ */
+
+export type ProjectSlug = 'alberi-di-vita' | 'score-board' | 'pocket-garage';
+
+export type ProjectKind = 'fullstack' | 'frontend';
+
+export type SkillGroup = 'frontend' | 'backend' | 'data' | 'mobile';
+
 export interface Project {
+    slug: ProjectSlug;
+    /** nome proprio: non si traduce mai */
     title: string;
-    description: string;
     tech: string[];
+    kind: ProjectKind;
     link?: string;
     github?: string;
-    type: string;
     screen?: StaticImageData;
-};
+}
 
 export interface Skill {
     name: string;
-    icon: string;
+    icon: StaticImageData;
+    group: SkillGroup;
+    /** sostituisce l'`icon` chiara quando il tema risolto è scuro */
+    iconDark?: StaticImageData;
 }
 
 export const skills: Skill[] = [
-    { name: 'React', icon: reactIcon },
-    { name: 'Next.js', icon: nextIcon },
-    { name: 'JavaScript', icon: javascriptIcon },
-    { name: 'TypeScript', icon: typescriptIcon },
-    { name: 'Tailwind', icon: tailwindIcon },
-    { name: 'Node.js', icon: nodeIcon },
-    { name: 'Express', icon: expressIcon },
-    { name: 'Laravel', icon: laravelIcon },
-    { name: 'PHP', icon: phpIcon },
-    { name: 'MySQL', icon: mysqlIcon },
-    { name: 'PostgreSQL', icon: postgresqlIcon },
-    { name: 'Supabase', icon: supabaseIcon },
+    { name: 'React', icon: reactIcon, group: 'frontend' },
+    { name: 'Next.js', icon: nextIcon, group: 'frontend' },
+    { name: 'TypeScript', icon: typescriptIcon, group: 'frontend' },
+    { name: 'JavaScript', icon: javascriptIcon, group: 'frontend' },
+    { name: 'Tailwind', icon: tailwindIcon, group: 'frontend' },
+    { name: 'Node.js', icon: nodeIcon, group: 'backend' },
+    { name: 'Express', icon: expressLightIcon, iconDark: expressDarkIcon, group: 'backend' },
+    { name: 'Laravel', icon: laravelIcon, group: 'backend' },
+    { name: 'PHP', icon: phpLightIcon, iconDark: phpDarkIcon, group: 'backend' },
+    { name: 'PostgreSQL', icon: postgresqlIcon, group: 'data' },
+    { name: 'MySQL', icon: mysqlIcon, group: 'data' },
+    { name: 'Supabase', icon: supabaseIcon, group: 'data' },
+    { name: 'Expo', icon: expoIcon, group: 'mobile' },
 ];
+
+export const skillGroups: SkillGroup[] = ['frontend', 'backend', 'data', 'mobile'];
 
 export const projects: Project[] = [
     {
+        slug: 'alberi-di-vita',
         title: 'Alberi di Vita OdV',
-        description: 'Ristrutturazione completa del sito vetrina + CMS + gestionale per l\'organizzazione non profit. Sviluppo full-stack con deploy su Vercel.',
-        tech: ['Next.js', 'TypeScript', 'Shadcn', 'Supabase'],
+        tech: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase'],
         link: 'https://alberi-di-vita-odv.vercel.app/',
-        type: 'Frontend + Backend',
-        screen: alberiDiVitaScreen
+        kind: 'fullstack',
+        screen: alberiDiVitaScreen,
     },
     {
+        slug: 'score-board',
         title: 'Score Board',
-        description: 'PWA completa per la gestione di statistiche, giocatori e flussi di cassa di squadre sportive amatoriali.',
-        tech: ['Next.js', 'Tailwind', 'Supabase'],
+        tech: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase'],
         link: 'https://score-board-gray.vercel.app/',
-        type: 'Frontend + Backend',
-        screen: scoreBoardScreen
+        kind: 'fullstack',
+        screen: scoreBoardScreen,
     },
     {
+        slug: 'pocket-garage',
         title: 'Pocket Garage',
-        description: 'PWA per il monitoraggio di veicoli: scadenze, manutenzioni, rifornimenti, assicurazioni e bolli.',
-        tech: ['Next.js', 'Tailwind', 'Shadcn', 'Supabase'],
+        tech: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase'],
         link: 'https://pocket-garage.vercel.app/',
-        type: 'Frontend + Backend',
-        screen: pocketGarageScreen
+        kind: 'fullstack',
+        screen: pocketGarageScreen,
     },
-    /* {
-        title: 'Convenzioni Poliambulanza',
-        description: 'PWA sviluppata per semplificare la ricerca delle attività convenzionate con l\'Istituto Ospedaliero Poliambulanza di Brescia. Applicazione web progressiva ottimizzata per mobile.',
-        tech: ['React', 'Tailwind', 'Supabase'],
-        link: 'https://pa-conventions.vercel.app/',
-        type: 'Frontend + Backend'
-    } */
 ];

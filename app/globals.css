@@ -1,175 +1,338 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
+/*
+ * Lo script pre-paint in components/theme/theme-script.tsx scrive su <html>
+ * data-theme (valore risolto: light|dark) e data-theme-pref
+ * (light|system|dark). Usa `dark:` solo dove un token non riesce davvero a
+ * esprimere la differenza: con i token semantici deve restare un caso raro.
+ */
+@custom-variant dark (&:is([data-theme="dark"] *));
 
 :root {
-  /* === BRAND TOKENS === */
-  --white: #ECEAF6;
-  --black: #07070F;
-  --blue: #1c4eef;
-  --gray: rgba(236, 234, 246, 0.45);
-  --available: #34D399;
-  --transparent: rgba(255, 255, 255, 0.025);
-  --radius: 0.875rem;
+    color-scheme: light dark;
 
-  /* === TAILWIND COMPAT === */
-  --background: #07070F;
-  --foreground: #ECEAF6;
-  --card: rgba(255, 255, 255, 0.04);
-  --card-foreground: #ECEAF6;
-  --popover: #0D0D1C;
-  --popover-foreground: #ECEAF6;
-  --primary: #1c4eef;
-  --primary-foreground: #07070F;
-  --secondary: rgba(255, 255, 255, 0.06);
-  --secondary-foreground: #ECEAF6;
-  --muted: rgba(255, 255, 255, 0.04);
-  --muted-foreground: rgba(236, 234, 246, 0.45);
-  --accent: rgba(255, 255, 255, 0.06);
-  --accent-foreground: #ECEAF6;
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: rgba(255, 255, 255, 0.07);
-  --input: rgba(255, 255, 255, 0.07);
-  --ring: rgba(28, 78, 239, 0.45);
+    /*
+     * === SUPERFICI ===
+     * Tre toni, di proposito: il canvas sta sotto le card perché se ne
+     * stacchino, e `surface-alt` è il colore della fascia che separa una
+     * sezione dall'altra senza mai uscire dalla palette.
+     */
+    --background: light-dark(#F1F1F5, #08080E);
+    --surface: light-dark(#FFFFFF, #17171F);
+    --surface-alt: light-dark(#E3E3EB, #101018);
+    --muted: light-dark(#EBEBF1, #1E1E29);
+    /* la nav flottante sta sopra il contenuto che scorre, quindi serve alpha */
+    --surface-translucent: light-dark(rgba(255, 255, 255, 0.8), rgba(23, 23, 31, 0.78));
+
+    /* === INCHIOSTRO === */
+    --foreground: light-dark(#14141B, #ECEAF6);
+    --muted-foreground: light-dark(#5B5B6B, #9695A8);
+
+    /* === LINEE === */
+    --border: light-dark(#DEDEE7, #262633);
+    --border-strong: light-dark(#C7C7D4, #38384A);
+
+    /*
+     * === ACCENTO === uno, e uno solo
+     * La versione dark è schiarita: #1C4EEF sul canvas scuro sta a 3.2:1 e
+     * non passa per il testo di dimensione normale (i titoli delle card
+     * contatto virano sull'accento in hover). #7E99FF lì sta a 7.5:1, e
+     * richiede inchiostro scuro sopra: il bianco su #7E99FF sarebbe solo
+     * 2.7:1.
+     */
+    --primary: light-dark(#1C4EEF, #7E99FF);
+    --primary-foreground: light-dark(#FFFFFF, #0B0B12);
+    --success: light-dark(#0F9D63, #34D399);
+
+    /*
+     * === PROFONDITÀ ===
+     * light-dark() accetta solo valori <color>, quindi i *colori* delle ombre
+     * sono token mentre la geometria si compone nelle regole .panel qui sotto.
+     * Entrambe sono virate verso la tinta della pagina invece che nero puro.
+     */
+    --shadow-1: light-dark(rgba(23, 23, 38, 0.05), rgba(0, 0, 0, 0.5));
+    --shadow-2: light-dark(rgba(23, 23, 38, 0.16), rgba(0, 0, 0, 0.75));
+    /* bordo interno superiore: in dark legge come uno smusso illuminato, sulle card bianche è invisibile */
+    --highlight: light-dark(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.055));
+    /* l'alone diffuso di accento dietro al ritratto */
+    --glow: light-dark(rgba(28, 78, 239, 0.3), rgba(126, 153, 255, 0.28));
+    /* ::selection: una velatura di accento, non il blu di default del browser */
+    --selection: light-dark(rgba(28, 78, 239, 0.18), rgba(126, 153, 255, 0.32));
+
+    /* === COMPATIBILITÀ SHADCN === tenuta perché i componenti del registry continuino a risolvere */
+    --card: var(--surface);
+    --card-foreground: var(--foreground);
+    --popover: var(--surface);
+    --popover-foreground: var(--foreground);
+    --secondary: var(--muted);
+    --secondary-foreground: var(--foreground);
+    --accent: var(--muted);
+    --accent-foreground: var(--foreground);
+    --destructive: light-dark(#C0392B, #F87171);
+    --input: var(--border);
+    --ring: var(--primary);
+
+    /*
+     * === REGOLA DELLE FORME ===
+     * Una regola documentata, seguita ovunque:
+     *   controlli interattivi     → completamente tondi (pillole)
+     *   pannelli e card           → --radius-panel
+     *   media dentro un pannello  → --radius-panel meno il padding del pannello
+     *   chip e tessere piccole    → --radius
+     */
+    --radius: 1rem;
+    --radius-panel: 1.75rem;
+    --radius-band: 2.25rem;
+}
+
+/*
+ * L'unica cosa che il controllo del tema cambia a runtime è color-scheme.
+ * Ogni token qui sopra risolve attraverso light-dark(), quindi non c'è nessuna
+ * regola CSS da scambiare e non esiste una finestra in cui possa dipingere la
+ * palette sbagliata.
+ */
+:root[data-theme="light"] {
+    color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-dm-sans);
-  --font-mono: var(--font-dm-mono);
-  --font-display: var(--font-syne);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-lg: calc(var(--radius) - 4px);
-  --radius-lg: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
-}
+    --color-background: var(--background);
+    --color-surface: var(--surface);
+    --color-surface-alt: var(--surface-alt);
+    --color-muted: var(--muted);
+    --color-foreground: var(--foreground);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-border: var(--border);
+    --color-border-strong: var(--border-strong);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-success: var(--success);
+    --color-glow: var(--glow);
+    --color-selection: var(--selection);
 
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
 
-.glass {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow:
-    0 8px 32px 0 rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
-}
+    --font-sans: var(--font-dm-sans);
+    --font-mono: var(--font-dm-mono);
+    --font-display: var(--font-display);
 
-.glass-panel {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
+    /*
+     * La larghezza massima delle fasce delle sezioni `alt` e del footer. Deve
+     * restare comodamente sopra la misura max-w-5xl (64rem) che avvolgono,
+     * altrimenti la fascia finisce più stretta del proprio contenuto.
+     */
+    --container-band: 76rem;
 
-.glass-panel:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(28, 78, 239, 0.35);
-  transform: translateY(-2px);
-  box-shadow:
-    0 12px 36px -4px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(28, 78, 239, 0.1),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
-}
-
-/* Infinite scroll animation */
-@keyframes infinite-scroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-infinite-scroll {
-  animation: infinite-scroll 20s linear infinite;
-}
-
-.pause-animation:hover {
-  animation-play-state: paused;
-}
-
-.dark {
-  --background: #07070F;
-  --foreground: #ECEAF6;
-  --card: rgba(255, 255, 255, 0.04);
-  --card-foreground: #ECEAF6;
-  --popover: #0D0D1C;
-  --popover-foreground: #ECEAF6;
-  --primary: #1c4eef;
-  --primary-foreground: #07070F;
-  --secondary: rgba(255, 255, 255, 0.06);
-  --secondary-foreground: #ECEAF6;
-  --muted: rgba(255, 255, 255, 0.04);
-  --muted-foreground: rgba(236, 234, 246, 0.45);
-  --accent: rgba(255, 255, 255, 0.06);
-  --accent-foreground: #ECEAF6;
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: rgba(255, 255, 255, 0.07);
-  --input: rgba(255, 255, 255, 0.07);
-  --ring: rgba(28, 78, 239, 0.45);
-  --sidebar: #0D0D1C;
-  --sidebar-foreground: #ECEAF6;
-  --sidebar-primary: #1c4eef;
-  --sidebar-primary-foreground: #07070F;
-  --sidebar-accent: rgba(255, 255, 255, 0.06);
-  --sidebar-accent-foreground: #ECEAF6;
-  --sidebar-border: rgba(255, 255, 255, 0.07);
-  --sidebar-ring: rgba(28, 78, 239, 0.45);
+    --radius-sm: 0.625rem;
+    --radius-md: 0.875rem;
+    --radius-lg: var(--radius);
+    --radius-xl: 1.375rem;
+    --radius-2xl: var(--radius-panel);
+    --radius-3xl: var(--radius-band);
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    ::selection {
+        background-color: var(--selection);
+        color: var(--foreground);
+    }
+
+    /* Non rimuovere mai il focus ring: semmai sostituiscilo con uno migliore. */
+    :focus-visible {
+        outline: 2px solid var(--primary);
+        outline-offset: 3px;
+        border-radius: 4px;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+    }
+}
+
+/*
+ * === PANNELLI ===
+ * Due ombre sovrapposte (una di contatto stretta più una ambientale larga con
+ * spread molto negativo) invece di una sola sfocatura: è questo che fa leggere
+ * un oggetto fisico appoggiato sulla pagina invece di un rettangolo sfocato.
+ */
+.panel {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-panel);
+    box-shadow:
+        0 1px 2px var(--shadow-1),
+        0 14px 34px -18px var(--shadow-2),
+        inset 0 1px 0 var(--highlight);
+}
+
+/* Stesso materiale, presenza più leggera: per chip e tessere piccole. Il
+   raggio lo sceglie il chiamante. */
+.panel-soft {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow:
+        0 1px 2px var(--shadow-1),
+        0 6px 16px -12px var(--shadow-2),
+        inset 0 1px 0 var(--highlight);
+}
+
+.panel-interactive {
+    transition:
+        transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.panel-interactive:hover {
+    border-color: var(--border-strong);
+    box-shadow:
+        0 2px 4px var(--shadow-1),
+        0 28px 56px -24px var(--shadow-2),
+        inset 0 1px 0 var(--highlight);
+}
+
+.panel-interactive:active {
+    box-shadow:
+        0 1px 2px var(--shadow-1),
+        0 10px 24px -16px var(--shadow-2),
+        inset 0 1px 0 var(--highlight);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .panel-interactive:hover {
+        transform: translateY(-4px);
+    }
+
+    .panel-interactive:active {
+        transform: translateY(-1px);
+    }
+}
+
+/*
+ * === NAV FLOTTANTE ===
+ * backdrop-filter è confinato a questo unico elemento fixed. Non va mai
+ * applicato a contenuto che scorre, dove forzerebbe ridisegni GPU continui.
+ */
+.nav-pill {
+    background-color: var(--surface-translucent);
+    border: 1px solid var(--border);
+    box-shadow:
+        0 1px 2px var(--shadow-1),
+        0 18px 40px -20px var(--shadow-2),
+        inset 0 1px 0 var(--highlight);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* Con meno trasparenza richiesta dall'utente, la sfocatura non ha su cosa lavorare. */
+@media (prefers-reduced-transparency: reduce) {
+    .nav-pill {
+        background-color: var(--surface);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
+/* La sagoma organica del ritratto. */
+.blob {
+    border-radius: 62% 38% 34% 66% / 61% 30% 70% 39%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .blob {
+        animation: blob-morph 14s ease-in-out infinite;
+    }
+}
+
+@keyframes blob-morph {
+    0%,
+    100% {
+        border-radius: 62% 38% 34% 66% / 61% 30% 70% 39%;
+    }
+    33% {
+        border-radius: 42% 58% 65% 35% / 45% 63% 37% 55%;
+    }
+    66% {
+        border-radius: 55% 45% 40% 60% / 68% 42% 58% 32%;
+    }
+}
+
+/*
+ * === SCROLL REVEAL ===
+ * Due guardie lo rendono sicuro in entrambe le direzioni:
+ *   1. lo stato nascosto vive dentro prefers-reduced-motion: no-preference,
+ *      quindi chi ha ridotto le animazioni non lo incontra mai e il JS non
+ *      c'entra;
+ *   2. è limitato a .js, aggiunta dallo script di tema pre-paint, quindi se
+ *      il JS fallisce o è disattivato il contenuto non viene mai nascosto.
+ */
+@media (prefers-reduced-motion: no-preference) {
+    .js [data-reveal] {
+        opacity: 0;
+        transform: translateY(14px);
+        transition:
+            opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+            transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        transition-delay: var(--reveal-delay, 0ms);
+    }
+
+    .js [data-reveal="shown"] {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* === CONTROLLO DEL TEMA ===
+ * Il segmento attivo è pilotato interamente in CSS dall'attributo che lo
+ * script pre-paint ha già impostato, mai dallo stato React: server e client
+ * producono markup identico, quindi non c'è nulla da disallineare e nessun
+ * flag `mounted` da nessuna parte.
+ */
+[data-theme-pref="light"] [data-pref="light"],
+[data-theme-pref="system"] [data-pref="system"],
+[data-theme-pref="dark"] [data-pref="dark"] {
+    /* --background/--foreground sono una coppia di contrasto invertita in
+       entrambi i temi, a differenza di --primary-foreground che in dark
+       sparirebbe contro la pillola --foreground quasi bianca. */
+    color: var(--background);
+    background-color: var(--foreground);
+}
+
+/* Solo su richiesta esplicita. La pagina la sua scrollbar la tiene: in una
+   lettura editoriale lunga, nasconderla toglie al lettore il senso di posizione. */
+.scrollbar-hide {
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
-  }
+}
 
-  *::-webkit-scrollbar {
+.scrollbar-hide::-webkit-scrollbar {
     display: none;
-    /* Chrome, Safari, Opera */
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    background-color: #07070F;
-  }
 }
