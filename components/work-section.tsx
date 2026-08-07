@@ -137,7 +137,7 @@ export default function WorkSection({ copy }: { copy: Messages["work"] }) {
                                     </div>
                                     <span
                                         aria-hidden="true"
-                                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-primary group-hover:text-primary-foreground"
+                                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-primary-strong group-hover:text-primary-strong-foreground"
                                     >
                                         <ArrowUpRight size={17} strokeWidth={2} />
                                     </span>

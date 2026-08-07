@@ -18,7 +18,7 @@ export default function HeroSection({ copy }: { copy: Messages["hero"] }) {
                         <h1 className="font-display text-[clamp(2.75rem,9vw,5.25rem)] leading-[0.92] font-semibold tracking-[-0.04em]">
                             Francesco
                             <br />
-                            <span className="text-primary">Delmonaco</span>
+                            <span className="text-primary-strong">Delmonaco</span>
                         </h1>
                         <p className="mt-5 font-mono text-[11px] tracking-[0.22em] text-muted-foreground uppercase">
                             {copy.role}

@@ -22,7 +22,7 @@ interface SectionProps {
  */
 export default function Section({ id, heading, tone = "base", children }: SectionProps) {
     const body = (
-        <div className="mx-auto w-full max-w-5xl px-5 py-14 md:px-8 md:py-20">
+        <div className="mx-auto w-full max-w-5xl p-8 md:p-10 lg:p-12">
             <h2 className="max-w-[54ch] font-display text-3xl font-semibold tracking-[-0.03em] text-balance md:text-4xl">
                 {heading}
             </h2>
@@ -33,19 +33,14 @@ export default function Section({ id, heading, tone = "base", children }: Sectio
 
     if (tone === "alt") {
         return (
-            <section id={id} className="relative px-3 py-3 md:px-6 md:py-6">
-                {/* `max-w-band` + `mx-auto`, mai un inset fisso: la fascia deve
-                    restare più larga della misura max-w-5xl che avvolge a ogni
-                    viewport, e un inset laterale fisso smette di farlo appena il
-                    viewport è più stretto di misura + 2 × inset. */}
-                <div className="absolute inset-x-3 inset-y-13 -z-10 mx-auto max-w-band rounded-3xl bg-surface-alt md:inset-5 md:inset-y-20" />
-                {body}
+            <section id={id} className="px-3 md:px-20 md:py-20">
+                <div className="mx-auto max-w-5xl rounded-3xl bg-surface-alt">{body}</div>
             </section>
         );
     }
 
     return (
-        <section id={id} className="px-3 md:px-6">
+        <section id={id} className="px-3 md:px-20">
             {body}
         </section>
     );

@@ -186,10 +186,14 @@ Tailwind v4, configurato interamente in CSS. **Non esiste `tailwind.config`.**
   nell'HTML renderizzato dal server, il che è incompatibile in radice con un tema
   applicato via script, e il suo parser è precedente alle registrazioni
   `@property --tw-*` di Tailwind v4.
-- **Le fasce di sezione si limitano con `max-w-band` + `mx-auto`, mai con un
-  inset laterale fisso.** Una fascia deve restare più larga della misura
-  `max-w-5xl` che avvolge a *ogni* viewport; un inset fisso smette di farlo
-  appena il viewport è più stretto di misura + 2 × inset.
+- **Le fasce di sezione (`Section` con `tone="alt"` e `Footer`) usano padding
+  fisso sul contenitore, non più `max-w-band` + `mx-auto`.** Con quella
+  combinazione l'inset x era in pratica governato dal centraggio contro
+  `max-w-band`: cresceva senza limite sugli schermi larghi indipendentemente
+  dal valore di inset dichiarato, restando sempre più ampio dell'inset y. Il
+  padding non ha quell'effetto — x e y restano il valore dichiarato a ogni
+  ampiezza di schermo, ed è per questo che ora sono uguali in pixel in
+  desktop.
 - **Express e PHP arrivano come SVG separati chiaro/scuro** invece che come un
   unico marchio in `currentColor`. Una `Skill` in `lib/data.ts` porta un
   `iconDark` opzionale; `stack-section.tsx` e `work-section.tsx` rendono entrambi

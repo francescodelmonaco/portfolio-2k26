@@ -42,7 +42,7 @@ export default function ContactSection({ copy }: { copy: Messages["contact"] }) 
                         >
                             <span
                                 aria-hidden="true"
-                                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-muted text-muted-foreground transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground"
+                                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-muted text-muted-foreground transition-colors duration-300 group-hover:bg-primary-strong group-hover:text-primary-strong-foreground"
                             >
                                 <row.Icon size={20} strokeWidth={1.75} />
                             </span>

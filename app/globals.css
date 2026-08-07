@@ -42,6 +42,15 @@
      */
     --primary: light-dark(#1C4EEF, #7E99FF);
     --primary-foreground: light-dark(#FFFFFF, #0B0B12);
+    /*
+     * --primary-strong: lo stesso #1C4EEF del tema chiaro, invariato in dark.
+     * Riservato ai punti dove serve il blu pieno anche sul canvas scuro (il
+     * cognome nell'hero, gli sfondi dei bottoni a cerchio): lì l'inchiostro
+     * sopra resta bianco in entrambi i temi, a differenza di --primary che in
+     * dark si schiarisce apposta per restare leggibile come testo di corpo.
+     */
+    --primary-strong: #1C4EEF;
+    --primary-strong-foreground: #FFFFFF;
     --success: light-dark(#0F9D63, #34D399);
 
     /*
@@ -110,6 +119,8 @@
     --color-border-strong: var(--border-strong);
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
+    --color-primary-strong: var(--primary-strong);
+    --color-primary-strong-foreground: var(--primary-strong-foreground);
     --color-success: var(--success);
     --color-glow: var(--glow);
     --color-selection: var(--selection);
