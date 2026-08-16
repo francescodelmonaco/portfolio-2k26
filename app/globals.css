@@ -23,6 +23,13 @@
     --muted: light-dark(#EBEBF1, #1E1E29);
     /* la nav flottante sta sopra il contenuto che scorre, quindi serve alpha */
     --surface-translucent: light-dark(rgba(255, 255, 255, 0.8), rgba(23, 23, 31, 0.78));
+    /*
+     * Il punto della trama del canvas (vedi la regola `body`). Alpha bassissima
+     * di proposito: deve dare grana al fondo, non disegnare una griglia. In
+     * dark è ancora più tenue perché un punto chiaro su fondo scuro salta
+     * all'occhio molto più di quanto non faccia il suo contrario.
+     */
+    --pattern-dot: light-dark(rgba(20, 20, 27, 0.09), rgba(236, 234, 246, 0.055));
 
     /* === INCHIOSTRO === */
     --foreground: light-dark(#14141B, #ECEAF6);
@@ -161,8 +168,23 @@
         @apply border-border;
     }
 
+    /*
+     * === TRAMA DEL CANVAS ===
+     * Una griglia di punti dipinta sul solo <body>, cioè sul tono più basso
+     * della scala di superficie. Le fasce `alt` e le card sono opache, quindi
+     * la coprono: la trama resta visibile solo dove c'è davvero canvas, ed è
+     * questo a farle leggere come oggetti appoggiati sopra qualcosa invece che
+     * sul vuoto. Ripeterla anche dentro le card annullerebbe la scala.
+     *
+     * È un background e basta: nessun overlay in position: fixed, nessun layer
+     * composito in più da ri-rasterizzare a ogni frame di scroll su mobile.
+     */
     body {
         @apply bg-background text-foreground;
+        background-image: radial-gradient(circle, var(--pattern-dot) 1px, transparent 1px);
+        background-size: 22px 22px;
+        /* mezzo passo, così i punti non si appoggiano al bordo del viewport */
+        background-position: 11px 11px;
     }
 
     ::selection {
@@ -275,6 +297,18 @@
 /* La sagoma organica del ritratto. */
 .blob {
     border-radius: 62% 38% 34% 66% / 61% 30% 70% 39%;
+}
+
+/*
+ * L'alone dietro al ritratto è un gradiente, mai un `filter: blur()`. Un
+ * elemento sfocato diventa un layer composito a sé: su mobile il
+ * rasterizzatore lo taglia sul proprio bounding box e in produzione si vedeva
+ * il rettangolo chiaro attorno al blob (e la sagoma animata sotto lo stesso
+ * filtro costringeva a ri-rasterizzare a ogni frame). Un radial-gradient che
+ * sfuma fino a transparent dà lo stesso alone dipingendo in-place.
+ */
+.blob-glow {
+    background-image: radial-gradient(closest-side, var(--glow), transparent);
 }
 
 @media (prefers-reduced-motion: no-preference) {

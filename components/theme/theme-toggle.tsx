@@ -3,6 +3,8 @@
 import { useEffect, useLayoutEffect, useSyncExternalStore } from "react";
 import { Monitor, Moon, Sun } from "lucide-react";
 
+import { syncThemeColorMeta } from "@/lib/theme-color";
+
 export type ThemePref = "light" | "system" | "dark";
 
 const PREFS = [
@@ -59,6 +61,8 @@ function apply(pref: ThemePref) {
     root.dataset.theme = theme;
     root.dataset.themePref = pref;
     root.style.colorScheme = theme;
+    // La cornice del browser su mobile segue il tema risolto, non il sistema.
+    syncThemeColorMeta(theme);
     try {
         localStorage.setItem("theme", pref);
     } catch {
@@ -93,6 +97,9 @@ export default function ThemeToggle({
      */
     useLayoutEffect(() => {
         if (!document.documentElement.dataset.theme) apply(readStoredPref());
+        // Anche il meta theme-color vive in <head> e non sopravvive garantito al
+        // rimontaggio del documento: lo si riscrive comunque.
+        else syncThemeColorMeta(resolve(readPref()));
     }, []);
 
     useEffect(() => {

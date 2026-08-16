@@ -12,6 +12,7 @@ import { fontVariables } from "@/lib/fonts";
 import { defaultLocale, isLocale, locales, ogLocale, type Locale } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/messages";
 import { site, siteUrl } from "@/lib/site";
+import { THEME_COLORS } from "@/lib/theme-color";
 
 export function generateStaticParams() {
     return locales.map((locale) => ({ locale }));
@@ -95,9 +96,12 @@ export const viewport: Viewport = {
     colorScheme: "light dark",
     // Deve seguire --background in globals.css, altrimenti su mobile la
     // cornice del browser e il canvas della pagina si scostano di una sfumatura.
+    // Questa coppia copre solo il caso senza JavaScript: con JS attivo vince il
+    // meta senza `media` che lo script pre-paint mette in testa a <head>, perché
+    // solo quello sa della preferenza esplicita salvata (vedi lib/theme-color.ts).
     themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "#F1F1F5" },
-        { media: "(prefers-color-scheme: dark)", color: "#08080E" },
+        { media: "(prefers-color-scheme: light)", color: THEME_COLORS.light },
+        { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark },
     ],
 };
 

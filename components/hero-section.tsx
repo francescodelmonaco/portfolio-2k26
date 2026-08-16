@@ -32,10 +32,10 @@ export default function HeroSection({ copy }: { copy: Messages["hero"] }) {
                     </div>
 
                     <div className="relative w-48 shrink-0 sm:w-56 md:w-64">
-                        {/* alone di accento, dietro al blob e leggermente più grande */}
+                        {/* alone di accento, dietro al blob e più largo: gradiente, non blur (vedi .blob-glow) */}
                         <div
                             aria-hidden="true"
-                            className="blob absolute inset-0 scale-115 bg-glow blur-2xl"
+                            className="blob-glow absolute inset-0 scale-140"
                         />
                         <div className="blob relative overflow-hidden border border-border">
                             <Image
