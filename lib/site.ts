@@ -3,7 +3,7 @@
  * canonical, hreflang, sitemap, robots e le immagini OG leggono tutti da qui.
  */
 
-export const siteUrl = "https://francescodelmonaco.com";
+export const siteUrl = "https://www.francescodelmonaco.com";
 
 export const site = {
     url: siteUrl,

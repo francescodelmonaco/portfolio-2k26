@@ -2,7 +2,7 @@
 
 Portfolio personale bilingue (IT/EN), pagina singola. Next.js App Router, Tailwind v4, deploy su Vercel.
 
-Online su **[francescodelmonaco.com](https://francescodelmonaco.com)**.
+Online su **[francescodelmonaco.com](https://www.francescodelmonaco.com)**.
 
 ## Avvio
 
