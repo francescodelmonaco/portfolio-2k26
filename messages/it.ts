@@ -15,9 +15,9 @@ const projectCopy: Record<ProjectSlug, { description: string }> = {
         description:
             "Ristrutturazione completa del sito vetrina, con CMS e gestionale interno per l'organizzazione non profit. Analisi, sviluppo full-stack e rilascio.",
     },
-    "score-board": {
+    goalcrew: {
         description:
-            "PWA per la gestione di squadre sportive amatoriali: statistiche, rose giocatori e movimenti di cassa in un unico posto.",
+            "App iOS e Android per campionati di calcio tra amici: squadre libere, classifica automatica, convocazioni e cassa condivise tramite codice di invito.",
     },
     "pocket-garage": {
         description:
@@ -116,6 +116,7 @@ export const it = {
         kind: {
             fullstack: "Frontend + Backend",
             frontend: "Frontend",
+            mobile: "Mobile",
         },
         visit: "Apri il progetto in una nuova scheda",
         items: projectCopy,

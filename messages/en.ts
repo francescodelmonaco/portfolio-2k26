@@ -6,9 +6,9 @@ const projectCopy: Record<ProjectSlug, { description: string }> = {
         description:
             "Full rebuild of the public site, with a CMS and an internal admin tool for the non-profit. Analysis, full-stack development and release.",
     },
-    "score-board": {
+    goalcrew: {
         description:
-            "A PWA for amateur sports teams: statistics, player rosters and cash flow tracked in one place.",
+            "An iOS and Android app for football leagues among friends: free-form teams, automatic standings, call-ups and a shared kitty, joined with an invite code.",
     },
     "pocket-garage": {
         description:
@@ -109,6 +109,7 @@ export const en: Messages = {
         kind: {
             fullstack: "Frontend + Backend",
             frontend: "Frontend",
+            mobile: "Mobile",
         },
         visit: "Open the project in a new tab",
         items: projectCopy,

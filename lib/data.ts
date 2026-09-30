@@ -22,7 +22,7 @@ import phpDarkIcon from '../public/icons/php-dark.svg';
 import expoIcon from '../public/icons/expo.svg';
 
 // immagini dei progetti
-import scoreBoardScreen from '../public/screen/score-board-screen.webp';
+import goalcrewScreen from '../public/screen/goalcrew-screen.webp';
 import pocketGarageScreen from '../public/screen/pocket-garage-screen.webp';
 import alberiDiVitaScreen from '../public/screen/alberi-di-vita-screen.webp';
 
@@ -34,9 +34,9 @@ import alberiDiVitaScreen from '../public/screen/alberi-di-vita-screen.webp';
  * traduzioni.
  */
 
-export type ProjectSlug = 'alberi-di-vita' | 'score-board' | 'pocket-garage';
+export type ProjectSlug = 'alberi-di-vita' | 'goalcrew' | 'pocket-garage';
 
-export type ProjectKind = 'fullstack' | 'frontend';
+export type ProjectKind = 'fullstack' | 'frontend' | 'mobile';
 
 export type SkillGroup = 'frontend' | 'backend' | 'data' | 'mobile';
 
@@ -79,20 +79,20 @@ export const skillGroups: SkillGroup[] = ['frontend', 'backend', 'data', 'mobile
 
 export const projects: Project[] = [
     {
+        slug: 'goalcrew',
+        title: 'GoalCrew',
+        tech: ['Expo', 'TypeScript', 'Tailwind', 'Supabase'],
+        link: 'https://goalcrew.app/',
+        kind: 'mobile',
+        screen: goalcrewScreen,
+    },
+    {
         slug: 'alberi-di-vita',
         title: 'Alberi di Vita OdV',
         tech: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase'],
         link: 'https://alberi-di-vita-odv.vercel.app/',
         kind: 'fullstack',
         screen: alberiDiVitaScreen,
-    },
-    {
-        slug: 'score-board',
-        title: 'Score Board',
-        tech: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase'],
-        link: 'https://score-board-gray.vercel.app/',
-        kind: 'fullstack',
-        screen: scoreBoardScreen,
     },
     {
         slug: 'pocket-garage',
