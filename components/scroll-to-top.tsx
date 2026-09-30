@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUp } from "lucide-react";
 
 const THRESHOLD = 400;
@@ -14,12 +14,24 @@ const THRESHOLD = 400;
  * `scroll-behavior: smooth` impostato su `html` in globals.css, che a sua volta
  * è già protetto da `prefers-reduced-motion`: per lo scroll in sé qui non serve
  * altra gestione delle animazioni ridotte.
+ *
+ * L'anello di avanzamento usa `pathLength="100"`, così `stroke-dashoffset` è
+ * direttamente la percentuale mancante. Viene scritto sul nodo via ref invece
+ * che tramite stato, per non ri-renderizzare a ogni evento di scroll. Niente
+ * `animation-timeline: scroll()`: Firefox non lo supporta ancora.
  */
 export default function ScrollToTop({ label }: { label: string }) {
     const [visible, setVisible] = useState(false);
+    const progressRef = useRef<SVGCircleElement>(null);
 
     useEffect(() => {
-        const onScroll = () => setVisible(window.scrollY > THRESHOLD);
+        const onScroll = () => {
+            const { scrollY, innerHeight } = window;
+            const max = document.documentElement.scrollHeight - innerHeight;
+            const progress = max > 0 ? Math.min(scrollY / max, 1) : 0;
+            progressRef.current?.setAttribute("stroke-dashoffset", String(100 - progress * 100));
+            setVisible(scrollY > THRESHOLD);
+        };
         onScroll();
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
@@ -39,6 +51,21 @@ export default function ScrollToTop({ label }: { label: string }) {
                     : "pointer-events-none opacity-0 motion-safe:translate-y-2"
             }`}
         >
+            <svg aria-hidden="true" viewBox="0 0 56 56" className="absolute inset-0 -rotate-90 fill-none">
+                <circle cx="28" cy="28" r="25" strokeWidth="2" className="stroke-border" />
+                <circle
+                    ref={progressRef}
+                    cx="28"
+                    cy="28"
+                    r="25"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    pathLength={100}
+                    strokeDasharray="100"
+                    strokeDashoffset="100"
+                    className="stroke-primary"
+                />
+            </svg>
             <ArrowUp aria-hidden="true" size={22} strokeWidth={1.75} />
         </button>
     );
