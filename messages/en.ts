@@ -8,7 +8,7 @@ const projectCopy: Record<ProjectSlug, { description: string }> = {
     },
     goalcrew: {
         description:
-            "An iOS and Android app for football leagues among friends: free-form teams, automatic standings, call-ups and a shared kitty, joined with an invite code.",
+            "An iOS app for football leagues among friends: free-form teams, automatic standings, call-ups and a shared kitty, joined with an invite code.",
     },
     "pocket-garage": {
         description:

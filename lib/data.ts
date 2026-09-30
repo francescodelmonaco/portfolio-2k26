@@ -82,7 +82,8 @@ export const projects: Project[] = [
         slug: 'goalcrew',
         title: 'GoalCrew',
         tech: ['Expo', 'TypeScript', 'Tailwind', 'Supabase'],
-        link: 'https://goalcrew.app/',
+        // senza storefront nel percorso: Apple reindirizza a quello del visitatore
+        link: 'https://apps.apple.com/app/id6811418063',
         kind: 'mobile',
         screen: goalcrewScreen,
     },

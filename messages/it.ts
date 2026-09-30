@@ -17,7 +17,7 @@ const projectCopy: Record<ProjectSlug, { description: string }> = {
     },
     goalcrew: {
         description:
-            "App iOS e Android per campionati di calcio tra amici: squadre libere, classifica automatica, convocazioni e cassa condivise tramite codice di invito.",
+            "App iOS per campionati di calcio tra amici: squadre libere, classifica automatica, convocazioni e cassa condivise tramite codice di invito.",
     },
     "pocket-garage": {
         description:
