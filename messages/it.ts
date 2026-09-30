@@ -86,22 +86,27 @@ export const it = {
             {
                 title: "Gestionali su misura",
                 body: "Anagrafiche, flussi di lavoro e reportistica per chi ha superato il foglio di calcolo. Costruiti attorno al processo che usi già, non su un modello generico.",
+                tags: ["Anagrafiche", "Flussi di lavoro", "Report e dashboard"],
             },
             {
                 title: "Applicazioni web e PWA",
                 body: "Installabili dal browser e utilizzabili anche senza connessione. Una sola base di codice per computer, tablet e telefono.",
+                tags: ["Installabile", "Offline", "Multi-dispositivo"],
             },
             {
                 title: "Piattaforme e siti",
                 body: "Siti vetrina con un CMS che aggiorni da solo, aree riservate, integrazioni con i servizi che usi già.",
+                tags: ["CMS", "Aree riservate", "Integrazioni"],
             },
             {
                 title: "Demo per start-up",
                 body: "Dal prototipo navigabile all'MVP funzionante, per validare un'idea o portarla davanti a un investitore.",
+                tags: ["Prototipo", "MVP", "Pitch"],
             },
             {
                 title: "App mobile",
                 body: "App native e cross-platform per iOS e Android, dalla progettazione dell'interfaccia alla pubblicazione sugli store.",
+                tags: ["iOS", "Android", "Pubblicazione sugli store"],
             },
         ],
     },

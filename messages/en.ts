@@ -79,22 +79,27 @@ export const en: Messages = {
             {
                 title: "Custom business software",
                 body: "Records, workflows and reporting for teams that have outgrown the spreadsheet. Built around the process you already run, not a generic template.",
+                tags: ["Records", "Workflows", "Reports and dashboards"],
             },
             {
                 title: "Web apps and PWAs",
                 body: "Installable from the browser and usable offline. One codebase for desktop, tablet and phone.",
+                tags: ["Installable", "Offline", "Any device"],
             },
             {
                 title: "Platforms and websites",
                 body: "Marketing sites with a CMS you can update yourself, private areas, integrations with the services you already use.",
+                tags: ["CMS", "Private areas", "Integrations"],
             },
             {
                 title: "Start-up demos",
                 body: "From a clickable prototype to a working MVP, to validate an idea or take it in front of an investor.",
+                tags: ["Prototype", "MVP", "Investor pitch"],
             },
             {
                 title: "Mobile apps",
                 body: "Native and cross-platform apps for iOS and Android, from interface design through to store release.",
+                tags: ["iOS", "Android", "Store release"],
             },
         ],
     },

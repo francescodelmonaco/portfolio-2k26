@@ -381,3 +381,159 @@
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
+
+/*
+ * === SERVIZI: FISARMONICA ===
+ * Un solo markup, due orientamenti. Aperta è sempre la card marcata
+ * `data-open`, cioè l'ultima visitata: la tiene `ServiceRails`, e dal render
+ * lato server è la prima, quindi anche senza JS non è mai tutto chiuso.
+ *
+ * Mobile, tablet e touch: barre impilate col titolo; al tocco il pannello si
+ * apre in verticale. L'animazione è `grid-template-rows` da 0fr a 1fr, l'unico
+ * modo di animare fino all'altezza del contenuto senza misurarla in JS.
+ *
+ * Da `lg` con puntatore fine: cinque binari verticali col titolo ruotato. È
+ * aperta la colonna sotto al mouse (o col focus); a riposo quella `data-open`.
+ *
+ * `:has()` e non `.svc-rails:hover`: passando nel `gap` fra due colonne la
+ * lista è in hover ma nessuna colonna sì, e tornerebbe aperta per un attimo
+ * quella a riposo.
+ *
+ * Nessuna altezza fissa per i binari: anche nelle colonne chiuse il contenuto
+ * è impaginato (solo trasparente e tagliato), quindi la riga flex prende
+ * l'altezza del servizio col testo più lungo e tutte le card si allineano.
+ *
+ * Il contenuto dei binari ha larghezza fissa pari a quella della colonna
+ * aperta (`100cqw` meno i binari chiusi, meno padding e bordo della card),
+ * così durante l'animazione la colonna scopre il testo invece di farlo
+ * riandare a capo a ogni frame.
+ *
+ * In entrambi i casi il contenuto chiuso è nascosto solo con opacity e
+ * overflow, mai con visibility: hidden, così lo screen reader legge tutti e
+ * cinque i servizi.
+ */
+@media not all and (min-width: 64rem) and (hover: hover) {
+    .svc-rails > li {
+        cursor: pointer;
+    }
+
+    /* il titolo lo porta la barra */
+    .svc-rails .svc-body-title {
+        display: none;
+    }
+
+    .svc-rails .svc-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+    }
+
+    .svc-rails .svc-panel > div {
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .svc-rails .svc-body {
+        opacity: 0;
+    }
+
+    .svc-rails > li[data-open] .svc-panel {
+        grid-template-rows: 1fr;
+    }
+
+    .svc-rails > li[data-open] .svc-body {
+        opacity: 1;
+    }
+
+    .svc-rails > li[data-open] .svc-bar-icon {
+        rotate: 45deg;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .svc-rails .svc-panel {
+            transition: grid-template-rows 500ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .svc-rails .svc-body {
+            transition: opacity 250ms ease;
+        }
+
+        .svc-rails > li[data-open] .svc-body {
+            transition: opacity 400ms ease 120ms;
+        }
+
+        .svc-rails .svc-bar-icon {
+            transition: rotate 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    }
+}
+
+@media (min-width: 64rem) and (hover: hover) {
+    .svc-rails {
+        --svc-rail: 4.5rem;
+        --svc-gap: 0.625rem;
+        container-type: inline-size;
+        display: flex;
+        gap: var(--svc-gap);
+        /* il minimo serve ai titoli verticali più lunghi, che sono assoluti e non spingono */
+        min-height: 17rem;
+    }
+
+    .svc-rails > li {
+        flex: 0 0 var(--svc-rail);
+    }
+
+    .svc-rails .svc-title-v {
+        display: flex;
+    }
+
+    .svc-rails .svc-bar {
+        display: none;
+    }
+
+    .svc-rails .svc-panel,
+    .svc-rails .svc-panel > div {
+        display: contents;
+    }
+
+    .svc-rails .svc-body {
+        width: calc(100cqw - 4 * (var(--svc-rail) + var(--svc-gap)) - 1.5rem - 2px);
+        flex: 1;
+        flex-direction: row;
+        opacity: 0;
+    }
+
+    .svc-rails > li:is(:hover, :focus-within),
+    .svc-rails:not(:has(> li:hover, > li:focus-within)) > li[data-open] {
+        flex-grow: 1;
+    }
+
+    .svc-rails > li:is(:hover, :focus-within) .svc-title-v,
+    .svc-rails:not(:has(> li:hover, > li:focus-within)) > li[data-open] .svc-title-v {
+        opacity: 0;
+    }
+
+    .svc-rails > li:is(:hover, :focus-within) .svc-body,
+    .svc-rails:not(:has(> li:hover, > li:focus-within)) > li[data-open] .svc-body {
+        opacity: 1;
+    }
+}
+
+@media (min-width: 64rem) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .svc-rails > li {
+        transition: flex-grow 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .svc-rails .svc-title-v {
+        transition: opacity 200ms ease;
+    }
+
+    /* in chiusura il testo sparisce subito; in apertura aspetta che la colonna si sia allargata */
+    .svc-rails .svc-body {
+        transition: opacity 200ms ease;
+    }
+
+    .svc-rails > li:is(:hover, :focus-within) .svc-body,
+    .svc-rails:not(:has(> li:hover, > li:focus-within)) > li[data-open] .svc-body {
+        transition: opacity 400ms ease 180ms;
+    }
+}

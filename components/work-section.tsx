@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import Section from "./ui/section";
+import Card, { cardClass } from "./ui/card";
 import { projects, skills, type Project } from "@/lib/data";
 import type { Messages } from "@/lib/i18n/messages";
 
@@ -69,8 +70,6 @@ function TechMarks({ tech }: { tech: string[] }) {
     );
 }
 
-const CARD_CLASS = "panel group flex h-full flex-col p-3";
-
 /**
  * Su un Project sia `link` sia `github` sono opzionali, quindi una card può
  * legittimamente non avere dove andare. In quel caso rende come pannello
@@ -80,7 +79,7 @@ const CARD_CLASS = "panel group flex h-full flex-col p-3";
 function CardShell({ project, copy, children }: { project: Project; copy: Messages["work"]; children: ReactNode }) {
     const href = project.link ?? project.github;
 
-    if (!href) return <div className={CARD_CLASS}>{children}</div>;
+    if (!href) return <Card>{children}</Card>;
 
     return (
         <Link
@@ -88,7 +87,7 @@ function CardShell({ project, copy, children }: { project: Project; copy: Messag
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${project.title} - ${copy.visit}`}
-            className={`${CARD_CLASS} panel-interactive`}
+            className={`${cardClass} panel-interactive`}
         >
             {children}
         </Link>
