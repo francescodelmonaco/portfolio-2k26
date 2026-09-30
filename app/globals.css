@@ -19,7 +19,8 @@
      */
     --background: light-dark(#F1F1F5, #08080E);
     --surface: light-dark(#FFFFFF, #17171F);
-    --surface-alt: light-dark(#E3E3EB, #101018);
+    /* traslucido di proposito: lascia trasparire l'alone del cursore sotto le fasce (#E3E3EB / #101018 al 60%) */
+    --surface-alt: light-dark(rgba(227, 227, 235, 0.6), rgba(16, 16, 24, 0.6));
     --muted: light-dark(#EBEBF1, #1E1E29);
     /* la nav flottante sta sopra il contenuto che scorre, quindi serve alpha */
     --surface-translucent: light-dark(rgba(255, 255, 255, 0.8), rgba(23, 23, 31, 0.78));
@@ -171,8 +172,8 @@
     /*
      * === TRAMA DEL CANVAS ===
      * Una griglia di punti dipinta sul solo <body>, cioè sul tono più basso
-     * della scala di superficie. Le fasce `alt` e le card sono opache, quindi
-     * la coprono: la trama resta visibile solo dove c'è davvero canvas, ed è
+     * della scala di superficie. Le card sono opache e le fasce `alt` in parte
+     * (60%), quindi la coprono: la trama resta visibile solo dove c'è davvero canvas, ed è
      * questo a farle leggere come oggetti appoggiati sopra qualcosa invece che
      * sul vuoto. Ripeterla anche dentro le card annullerebbe la scala.
      *
@@ -309,6 +310,48 @@
  */
 .blob-glow {
     background-image: radial-gradient(closest-side, var(--glow), transparent);
+}
+
+/*
+ * Lo stesso alone che segue il puntatore (components/cursor-glow.tsx). Con
+ * `z-index: -1` dipinge subito sopra al canvas di <body> (la trama di punti) e
+ * sotto a tutto il flusso: card e testo lo coprono (le fasce `alt` lo lasciano
+ * appena trasparire, vedi --surface-alt), quindi resta una luce sul piano
+ * dietro agli oggetti e non tocca mai il contrasto di ciò che
+ * si legge. Funziona finché né <html> né <body> diventano uno stacking
+ * context. Esiste solo con un mouse vero: su touch non c'è un puntatore da
+ * seguire.
+ */
+.cursor-glow {
+    display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .cursor-glow {
+        display: block;
+        position: fixed;
+        top: -15rem;
+        left: -15rem;
+        z-index: -1;
+        width: 30rem;
+        height: 30rem;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+    }
+
+    .cursor-glow[data-active] {
+        opacity: 0.6;
+    }
+}
+
+/* Il ritardo morbido dietro al cursore è movimento: solo senza preferenze contrarie. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cursor-glow {
+        transition:
+            opacity 0.6s ease,
+            transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 }
 
 @media (prefers-reduced-motion: no-preference) {

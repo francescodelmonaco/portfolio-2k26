@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "../globals.css";
 import ThemeScript from "@/components/theme/theme-script";
 import ScrollToTop from "@/components/scroll-to-top";
+import CursorGlow from "@/components/cursor-glow";
 import SiteHeader from "@/components/site-header";
 import Footer from "@/components/footer";
 import { fontVariables } from "@/lib/fonts";
@@ -133,6 +134,7 @@ export default async function RootLayout({
                 {children}
                 <Footer />
                 <ScrollToTop label={m.nav.home} />
+                <CursorGlow />
 
                 <Analytics />
                 <SpeedInsights />
