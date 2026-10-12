@@ -100,7 +100,8 @@ function CardShell({ project, copy, children }: { project: Project; copy: Messag
  *
  * Lo screenshot sta dentro il padding della card con un raggio minore, per
  * tenere le due curve concentriche (raggio pannello 28px − 12px di padding =
- * 16px).
+ * 16px). Il riquadro è 3:2 come gli screenshot sorgente (1440×960):
+ * `object-cover` + `object-top` ritaglia dal basso quelli con un rapporto diverso.
  */
 export default function WorkSection({ copy }: { copy: Messages["work"] }) {
     return (
@@ -119,7 +120,7 @@ export default function WorkSection({ copy }: { copy: Messages["work"] }) {
                                         alt=""
                                         sizes="(max-width: 1024px) 100vw, 32rem"
                                         priority={index < 2}
-                                        className="aspect-4/3 w-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                                        className="aspect-3/2 w-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
                                     />
                                 </div>
                             )}
