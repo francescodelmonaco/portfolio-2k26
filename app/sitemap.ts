@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { defaultLocale, locales } from "@/lib/i18n/config";
+import { locales } from "@/lib/i18n/config";
 import { siteUrl } from "@/lib/site";
 
 /*
@@ -9,7 +9,7 @@ import { siteUrl } from "@/lib/site";
  */
 const languages: Record<string, string> = {
     ...Object.fromEntries(locales.map((locale) => [locale, `${siteUrl}/${locale}`])),
-    "x-default": `${siteUrl}/${defaultLocale}`,
+    "x-default": `${siteUrl}/`,
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

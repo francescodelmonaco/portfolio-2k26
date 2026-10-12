@@ -39,10 +39,13 @@ export async function generateMetadata({
      * Per entrambe le lingue si restituisce lo stesso oggetto `languages`: così
      * si soddisfano in un colpo solo tutte e quattro le regole hreflang
      * (autoreferenziale, reciproco, x-default presente e canonical per lingua).
+     * x-default punta a `/`, non a `/it`: `/` è la pagina che smista per lingua
+     * (307 in proxy.ts). Puntandolo a `/it`, Google può leggere `/` come duplicato
+     * di `/it` e scegliere `/` come canonica al posto di quella dichiarata.
      */
     const languages: Record<string, string> = {
         ...Object.fromEntries(locales.map((l) => [l, `${siteUrl}/${l}`])),
-        "x-default": `${siteUrl}/${defaultLocale}`,
+        "x-default": `${siteUrl}/`,
     };
 
     return {
