@@ -6,8 +6,10 @@ import { Bricolage_Grotesque, DM_Sans, DM_Mono } from "next/font/google";
  * duplicherebbe tutti e tre i loader.
  */
 
+// l'asse `wdth` (75-100) serve a `font-stretch-condensed`: titoli di sezione e delle aree dei servizi
 export const display = Bricolage_Grotesque({
     variable: "--font-display",
+    axes: ["wdth"],
     subsets: ["latin"],
     display: "swap",
 });

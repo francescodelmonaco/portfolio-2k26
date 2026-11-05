@@ -1,15 +1,12 @@
 import { site } from "@/lib/site";
 
+/** L'ultima fascia della colonna: tono `alt`, dopo Contatti che è `base`. */
 export default function Footer() {
     return (
-        <footer className="px-3 pb-3 md:px-20 md:pb-6">
-            <div className="mx-auto max-w-5xl rounded-3xl bg-surface-alt">
-                <div className="p-8 md:p-10 lg:p-12 text-center font-mono text-[11px] tracking-[0.16em] text-muted-foreground uppercase">
-                    <p>
-                        © {new Date().getFullYear()} {site.author}
-                    </p>
-                </div>
-            </div>
+        <footer className="bg-surface-alt px-5 py-8 md:px-10">
+            <p className="hud-label text-center text-muted-foreground">
+                © {new Date().getFullYear()} {site.author}
+            </p>
         </footer>
     );
 }

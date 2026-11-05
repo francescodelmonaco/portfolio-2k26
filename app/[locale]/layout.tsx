@@ -128,16 +128,33 @@ export default async function RootLayout({
             <body className={`${fontVariables} antialiased`}>
                 <a
                     href="#main"
-                    className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:border focus:border-border focus:bg-surface focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase"
+                    className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:border focus:border-border focus:bg-surface focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase"
                 >
                     {m.nav.skipToContent}
                 </a>
 
-                <SiteHeader locale={locale} nav={m.nav} theme={m.theme} />
-                {children}
-                <Footer />
+                <SiteHeader
+                    locale={locale}
+                    nav={m.nav}
+                    theme={m.theme}
+                    sections={[
+                        { id: "services", label: m.services.heading },
+                        { id: "work", label: m.work.heading },
+                        { id: "stack", label: m.stack.heading },
+                        { id: "contact", label: m.contact.heading },
+                    ]}
+                />
+                {/*
+                 * la colonna incorniciata: le sue verticali proseguono nell'header.
+                 * `.frame` le dà il fondo sfumato, ed è uno stacking context: l'alone
+                 * del cursore deve stare qui dentro per dipingere sopra quel fondo.
+                 */}
+                <div className="frame mx-auto max-w-frame border-x border-border">
+                    <CursorGlow />
+                    {children}
+                    <Footer />
+                </div>
                 <ScrollToTop label={m.nav.home} />
-                <CursorGlow />
 
                 <Analytics />
                 <SpeedInsights />

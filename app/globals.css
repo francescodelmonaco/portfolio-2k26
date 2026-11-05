@@ -2,8 +2,7 @@
 
 /*
  * Lo script pre-paint in components/theme/theme-script.tsx scrive su <html>
- * data-theme (valore risolto: light|dark) e data-theme-pref
- * (light|system|dark). Usa `dark:` solo dove un token non riesce davvero a
+ * data-theme (light|dark). Usa `dark:` solo dove un token non riesce davvero a
  * esprimere la differenza: con i token semantici deve restare un caso raro.
  */
 @custom-variant dark (&:is([data-theme="dark"] *));
@@ -22,59 +21,72 @@
     /* traslucido di proposito: lascia trasparire l'alone del cursore sotto le fasce (#E3E3EB / #101018 al 60%) */
     --surface-alt: light-dark(rgba(227, 227, 235, 0.6), rgba(16, 16, 24, 0.6));
     --muted: light-dark(#EBEBF1, #1E1E29);
-    /* la nav flottante sta sopra il contenuto che scorre, quindi serve alpha */
-    --surface-translucent: light-dark(rgba(255, 255, 255, 0.8), rgba(23, 23, 31, 0.78));
+    /* la barra di navigazione sta sopra il contenuto che scorre, quindi serve alpha */
+    --surface-translucent: light-dark(rgba(241, 241, 245, 0.82), rgba(8, 8, 14, 0.78));
     /*
-     * Il punto della trama del canvas (vedi la regola `body`). Alpha bassissima
-     * di proposito: deve dare grana al fondo, non disegnare una griglia. In
-     * dark è ancora più tenue perché un punto chiaro su fondo scuro salta
-     * all'occhio molto più di quanto non faccia il suo contrario.
+     * Il punto della trama del canvas (vedi la regola `body`). Si vede solo
+     * nelle gronde ai lati della colonna (dentro, `.frame` la copre), quindi
+     * può essere più marcato di quando stava dietro al testo. In dark resta
+     * più tenue perché un punto chiaro su fondo scuro salta all'occhio molto
+     * più di quanto non faccia il suo contrario.
      */
-    --pattern-dot: light-dark(rgba(20, 20, 27, 0.09), rgba(236, 234, 246, 0.055));
+    --pattern-dot: light-dark(rgba(20, 20, 27, 0.16), rgba(236, 234, 246, 0.1));
 
     /* === INCHIOSTRO === */
     --foreground: light-dark(#14141B, #ECEAF6);
     --muted-foreground: light-dark(#5B5B6B, #9695A8);
 
-    /* === LINEE === */
-    --border: light-dark(#DEDEE7, #262633);
-    --border-strong: light-dark(#C7C7D4, #38384A);
+    /*
+     * === LINEE ===
+     * Ora sono loro a fare la struttura: la cornice della colonna, le righe tra
+     * le sezioni, le celle delle griglie. Non ci sono ombre a dare
+     * profondità, quindi `--border` deve restare visibile anche in dark.
+     */
+    --border: light-dark(#D9D9E3, #262633);
+    --border-strong: light-dark(#B9B9C8, #3E3E52);
 
     /*
-     * === ACCENTO === uno, e uno solo
-     * La versione dark è schiarita: #1C4EEF sul canvas scuro sta a 3.2:1 e
-     * non passa per il testo di dimensione normale (i titoli delle card
-     * contatto virano sull'accento in hover). #7E99FF lì sta a 7.5:1, e
-     * richiede inchiostro scuro sopra: il bianco su #7E99FF sarebbe solo
-     * 2.7:1.
+     * === ACCENTO === uno per tema, usato identico ovunque
+     * #0729EF è il blu di fondo del ritratto originale
+     * (public/img/foto-profilo.webp, campionato). Sul canvas chiaro sta a
+     * 7.2:1. In dark diventa #6A8CFF, un blu schiarito (226°, la tinta del
+     * blu e non del viola): #0729EF sul canvas scuro sta a 2.5:1 e non passa
+     * nemmeno per il testo grande, #6A8CFF lì sta a 6.5:1. Sopra va inchiostro
+     * scuro (6.4:1): il bianco non passerebbe, ed è per questo che
+     * --primary-foreground cambia col tema.
+     *
+     * Il ritratto nell'hero è la versione scontornata (fondo trasparente)
+     * appoggiata su `bg-primary`: il suo fondo segue il tema come tutto il
+     * resto. Testo, riempimenti, monogramma e foto usano tutti questo token,
+     * quindi in ciascun tema esiste un blu solo.
      */
-    --primary: light-dark(#1C4EEF, #7E99FF);
+    --primary: light-dark(#0729EF, #6A8CFF);
     --primary-foreground: light-dark(#FFFFFF, #0B0B12);
-    /*
-     * --primary-strong: lo stesso #1C4EEF del tema chiaro, invariato in dark.
-     * Riservato ai punti dove serve il blu pieno anche sul canvas scuro (il
-     * cognome nell'hero, gli sfondi dei bottoni a cerchio): lì l'inchiostro
-     * sopra resta bianco in entrambi i temi, a differenza di --primary che in
-     * dark si schiarisce apposta per restare leggibile come testo di corpo.
-     */
-    --primary-strong: #1C4EEF;
-    --primary-strong-foreground: #FFFFFF;
     --success: light-dark(#0F9D63, #34D399);
+    /*
+     * === SECONDA TINTA: GIALLO BURRO ===
+     * Il colore della cella Siti nel bento dei servizi, in diagonale rispetto
+     * alla AI. Il giallo è il complementare caldo del blu, in entrambi i temi:
+     * accanto all'accento si sposa invece di competere. Un fondo diluito e un
+     * inchiostro ambra scuro (in dark un giallo pieno) per titolo e icona,
+     * 6.1:1 e 10.4:1 sul proprio fondo. Solo lì: non è un secondo accento.
+     */
+    --warm-wash: light-dark(#FBF1D2, #241E0E);
+    --warm-ink: light-dark(#7A5300, #F2C94C);
 
     /*
-     * === PROFONDITÀ ===
-     * light-dark() accetta solo valori <color>, quindi i *colori* delle ombre
-     * sono token mentre la geometria si compone nelle regole .panel qui sotto.
-     * Entrambe sono virate verso la tinta della pagina invece che nero puro.
+     * === VELATURA D'ACCENTO ===
+     * Il fondo della sola cella AI nel bento dei servizi: l'accento diluito
+     * quasi fino al canvas, così la cella si distingue senza diventare un
+     * blocco di colore pieno. Sopra regge sia --primary sia --muted-foreground.
      */
-    --shadow-1: light-dark(rgba(23, 23, 38, 0.05), rgba(0, 0, 0, 0.5));
-    --shadow-2: light-dark(rgba(23, 23, 38, 0.16), rgba(0, 0, 0, 0.75));
-    /* bordo interno superiore: in dark legge come uno smusso illuminato, sulle card bianche è invisibile */
-    --highlight: light-dark(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.055));
-    /* l'alone diffuso di accento dietro al ritratto */
-    --glow: light-dark(rgba(28, 78, 239, 0.3), rgba(126, 153, 255, 0.28));
+    --accent-wash: light-dark(#E8EBFD, #0F1A3A);
+
+    /* l'alone diffuso di accento che segue il cursore */
+    --glow: light-dark(rgba(7, 41, 239, 0.26), rgba(106, 140, 255, 0.28));
     /* ::selection: una velatura di accento, non il blu di default del browser */
-    --selection: light-dark(rgba(28, 78, 239, 0.18), rgba(126, 153, 255, 0.32));
+    --selection: light-dark(rgba(7, 41, 239, 0.16), rgba(106, 140, 255, 0.32));
+
 
     /* === COMPATIBILITÀ SHADCN === tenuta perché i componenti del registry continuino a risolvere */
     --card: var(--surface);
@@ -91,15 +103,13 @@
 
     /*
      * === REGOLA DELLE FORME ===
-     * Una regola documentata, seguita ovunque:
-     *   controlli interattivi     → completamente tondi (pillole)
-     *   pannelli e card           → --radius-panel
-     *   media dentro un pannello  → --radius-panel meno il padding del pannello
-     *   chip e tessere piccole    → --radius
+     * Tutto ad angolo vivo, senza eccezioni: pannelli, controlli, chip, media,
+     * focus ring. Nessun `rounded-*` nei componenti. La scala `--radius-*` qui
+     * sotto in @theme è azzerata così che anche un componente shadcn aggiunto
+     * dal registry nasca squadrato. `rounded-full` resta fuori dalla scala:
+     * semplicemente non va usato.
      */
-    --radius: 1rem;
-    --radius-panel: 1.75rem;
-    --radius-band: 2.25rem;
+    --radius: 0;
 }
 
 /*
@@ -127,9 +137,10 @@
     --color-border-strong: var(--border-strong);
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
-    --color-primary-strong: var(--primary-strong);
-    --color-primary-strong-foreground: var(--primary-strong-foreground);
     --color-success: var(--success);
+    --color-accent-wash: var(--accent-wash);
+    --color-warm-wash: var(--warm-wash);
+    --color-warm-ink: var(--warm-ink);
     --color-glow: var(--glow);
     --color-selection: var(--selection);
 
@@ -149,19 +160,17 @@
     --font-mono: var(--font-dm-mono);
     --font-display: var(--font-display);
 
-    /*
-     * La larghezza massima delle fasce delle sezioni `alt` e del footer. Deve
-     * restare comodamente sopra la misura max-w-5xl (64rem) che avvolgono,
-     * altrimenti la fascia finisce più stretta del proprio contenuto.
-     */
-    --container-band: 76rem;
+    /* la larghezza della colonna incorniciata: header, sezioni e footer la condividono */
+    --container-frame: 72rem;
 
-    --radius-sm: 0.625rem;
-    --radius-md: 0.875rem;
-    --radius-lg: var(--radius);
-    --radius-xl: 1.375rem;
-    --radius-2xl: var(--radius-panel);
-    --radius-3xl: var(--radius-band);
+    --radius-xs: 0;
+    --radius-sm: 0;
+    --radius-md: 0;
+    --radius-lg: 0;
+    --radius-xl: 0;
+    --radius-2xl: 0;
+    --radius-3xl: 0;
+    --radius-4xl: 0;
 }
 
 @layer base {
@@ -172,10 +181,9 @@
     /*
      * === TRAMA DEL CANVAS ===
      * Una griglia di punti dipinta sul solo <body>, cioè sul tono più basso
-     * della scala di superficie. Le card sono opache e le fasce `alt` in parte
-     * (60%), quindi la coprono: la trama resta visibile solo dove c'è davvero canvas, ed è
-     * questo a farle leggere come oggetti appoggiati sopra qualcosa invece che
-     * sul vuoto. Ripeterla anche dentro le card annullerebbe la scala.
+     * della scala di superficie. Le celle sono opache e le fasce `alt` in parte
+     * (60%), quindi la coprono: la trama resta visibile solo dove c'è davvero
+     * canvas. Ripeterla anche dentro le card annullerebbe la scala.
      *
      * È un background e basta: nessun overlay in position: fixed, nessun layer
      * composito in più da ri-rasterizzare a ogni frame di scroll su mobile.
@@ -196,12 +204,13 @@
     /* Non rimuovere mai il focus ring: semmai sostituiscilo con uno migliore. */
     :focus-visible {
         outline: 2px solid var(--primary);
-        outline-offset: 3px;
-        border-radius: 4px;
+        outline-offset: 2px;
     }
 
     html {
         scroll-behavior: smooth;
+        /* l'header è sticky e alto 3rem: le ancore non devono finirci sotto */
+        scroll-padding-top: 3rem;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -212,100 +221,128 @@
 }
 
 /*
- * === PANNELLI ===
- * Due ombre sovrapposte (una di contatto stretta più una ambientale larga con
- * spread molto negativo) invece di una sola sfocatura: è questo che fa leggere
- * un oggetto fisico appoggiato sulla pagina invece di un rettangolo sfocato.
+ * === ETICHETTE HUD ===
+ * La piccola dicitura mono maiuscola spaziata: nav, ruoli, gruppi dello stack.
+ * Una classe sola così che corpo e tracking non derivino da un file all'altro.
+ */
+.hud-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+/*
+ * === CELLE ===
+ * Niente ombre: la profondità ora la danno le linee. Le griglie di card sono
+ * `gap-px` sopra `bg-border`, così il bordo fra due celle è uno solo e non
+ * due affiancati; la cella porta solo il riempimento.
  */
 .panel {
     background-color: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-panel);
-    box-shadow:
-        0 1px 2px var(--shadow-1),
-        0 14px 34px -18px var(--shadow-2),
-        inset 0 1px 0 var(--highlight);
 }
 
-/* Stesso materiale, presenza più leggera: per chip e tessere piccole. Il
-   raggio lo sceglie il chiamante. */
-.panel-soft {
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    box-shadow:
-        0 1px 2px var(--shadow-1),
-        0 6px 16px -12px var(--shadow-2),
-        inset 0 1px 0 var(--highlight);
-}
-
+/*
+ * In hover una barra d'accento si stende sul bordo superiore della cella,
+ * da sinistra. È `scale`, non `width`: resta lavoro di composizione.
+ */
 .panel-interactive {
-    transition:
-        transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 400ms cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
 }
 
-.panel-interactive:hover {
-    border-color: var(--border-strong);
-    box-shadow:
-        0 2px 4px var(--shadow-1),
-        0 28px 56px -24px var(--shadow-2),
-        inset 0 1px 0 var(--highlight);
+.panel-interactive::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background-color: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: 1;
 }
 
-.panel-interactive:active {
-    box-shadow:
-        0 1px 2px var(--shadow-1),
-        0 10px 24px -16px var(--shadow-2),
-        inset 0 1px 0 var(--highlight);
+.panel-interactive:hover::before,
+.panel-interactive:focus-visible::before {
+    transform: scaleX(1);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .panel-interactive:hover {
-        transform: translateY(-4px);
+    .panel-interactive::before {
+        transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .panel-interactive:active {
-        transform: translateY(-1px);
+        transform: translateY(1px);
     }
 }
 
 /*
- * === NAV FLOTTANTE ===
- * backdrop-filter è confinato a questo unico elemento fixed. Non va mai
- * applicato a contenuto che scorre, dove forzerebbe ridisegni GPU continui.
+ * === VETRO DELLA NAV ===
+ * backdrop-filter è confinato a questa classe, che sta solo sull'header sticky
+ * e sul bottone fixed di ritorno in cima. Non va mai applicato a contenuto che
+ * scorre, dove forzerebbe ridisegni GPU continui.
  */
-.nav-pill {
+.nav-glass {
     background-color: var(--surface-translucent);
-    border: 1px solid var(--border);
-    box-shadow:
-        0 1px 2px var(--shadow-1),
-        0 18px 40px -20px var(--shadow-2),
-        inset 0 1px 0 var(--highlight);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
 }
 
 /* Con meno trasparenza richiesta dall'utente, la sfocatura non ha su cosa lavorare. */
 @media (prefers-reduced-transparency: reduce) {
-    .nav-pill {
-        background-color: var(--surface);
+    .nav-glass {
+        background-color: var(--background);
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
     }
 }
 
-/* La sagoma organica del ritratto. */
-.blob {
-    border-radius: 62% 38% 34% 66% / 61% 30% 70% 39%;
+/*
+ * === LINK DELLA NAV ===
+ * Lo stesso gesto delle celle `.panel-interactive`, capovolto: una barra
+ * d'accento che si stende sul bordo inferiore della cella, da sinistra.
+ */
+.nav-link {
+    position: relative;
+    transition: color 150ms linear;
+}
+
+.nav-link:hover {
+    color: var(--foreground);
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 -1px 0;
+    height: 2px;
+    background-color: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+    transform: scaleX(1);
+}
+
+/* Il focus della cella è già la barra qui sopra: l'outline globale, con il suo
+   offset, disegnerebbe un secondo riquadro che esce dalla barra. */
+.nav-link:focus-visible {
+    outline: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .nav-link::after {
+        transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
 }
 
 /*
- * L'alone dietro al ritratto è un gradiente, mai un `filter: blur()`. Un
- * elemento sfocato diventa un layer composito a sé: su mobile il
- * rasterizzatore lo taglia sul proprio bounding box e in produzione si vedeva
- * il rettangolo chiaro attorno al blob (e la sagoma animata sotto lo stesso
- * filtro costringeva a ri-rasterizzare a ogni frame). Un radial-gradient che
+ * L'alone è un gradiente, mai un `filter: blur()`. Un elemento sfocato diventa
+ * un layer composito a sé: su mobile il rasterizzatore lo taglia sul proprio
+ * bounding box e si vede il rettangolo chiaro attorno. Un radial-gradient che
  * sfuma fino a transparent dà lo stesso alone dipingendo in-place.
  */
 .blob-glow {
@@ -313,14 +350,27 @@
 }
 
 /*
- * Lo stesso alone che segue il puntatore (components/cursor-glow.tsx). Con
- * `z-index: -1` dipinge subito sopra al canvas di <body> (la trama di punti) e
- * sotto a tutto il flusso: card e testo lo coprono (le fasce `alt` lo lasciano
+ * === LA COLONNA ===
+ * Il fondo della colonna incorniciata (layout): canvas pieno, così dentro la
+ * colonna la trama di punti non si vede e resta solo nelle gronde ai lati.
+ *
+ * `isolation: isolate` ne fa uno stacking context: è questo che permette
+ * all'alone del cursore (che vive dentro la colonna, a `z-index: -1`) di
+ * dipingere sopra a questo fondo e sotto a tutte le sezioni. Senza, finirebbe
+ * sotto il fondo pieno e sparirebbe.
+ */
+.frame {
+    isolation: isolate;
+    background-color: var(--background);
+}
+
+/*
+ * L'alone che segue il puntatore (components/cursor-glow.tsx), montato dentro
+ * `.frame`. Con `z-index: -1` dipinge sopra al fondo della colonna e sotto a
+ * tutto il flusso: le celle e il testo lo coprono (le fasce `alt` lo lasciano
  * appena trasparire, vedi --surface-alt), quindi resta una luce sul piano
- * dietro agli oggetti e non tocca mai il contrasto di ciò che
- * si legge. Funziona finché né <html> né <body> diventano uno stacking
- * context. Esiste solo con un mouse vero: su touch non c'è un puntatore da
- * seguire.
+ * dietro agli oggetti e non tocca mai il contrasto di ciò che si legge. Esiste
+ * solo con un mouse vero: su touch non c'è un puntatore da seguire.
  */
 .cursor-glow {
     display: none;
@@ -354,25 +404,6 @@
     }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .blob {
-        animation: blob-morph 14s ease-in-out infinite;
-    }
-}
-
-@keyframes blob-morph {
-    0%,
-    100% {
-        border-radius: 62% 38% 34% 66% / 61% 30% 70% 39%;
-    }
-    33% {
-        border-radius: 42% 58% 65% 35% / 45% 63% 37% 55%;
-    }
-    66% {
-        border-radius: 55% 45% 40% 60% / 68% 42% 58% 32%;
-    }
-}
-
 /*
  * === SCROLL REVEAL ===
  * Due guardie lo rendono sicuro in entrambe le direzioni:
@@ -398,20 +429,21 @@
     }
 }
 
-/* === CONTROLLO DEL TEMA ===
- * Il segmento attivo è pilotato interamente in CSS dall'attributo che lo
- * script pre-paint ha già impostato, mai dallo stato React: server e client
- * producono markup identico, quindi non c'è nulla da disallineare e nessun
- * flag `mounted` da nessuna parte.
+/* === TRANSIZIONE DEL TEMA ===
+ * Le due foto della View Transition restano ferme e opache: a scoprire quella
+ * nuova è solo la maschera a pixel che ThemeToggle anima su
+ * `::view-transition-new(root)`. L'SVG ha le misure del viewport, da cui
+ * `mask-size: 100% 100%`.
  */
-[data-theme-pref="light"] [data-pref="light"],
-[data-theme-pref="system"] [data-pref="system"],
-[data-theme-pref="dark"] [data-pref="dark"] {
-    /* --background/--foreground sono una coppia di contrasto invertita in
-       entrambi i temi, a differenza di --primary-foreground che in dark
-       sparirebbe contro la pillola --foreground quasi bianca. */
-    color: var(--background);
-    background-color: var(--foreground);
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
 }
 
 /* Solo su richiesta esplicita. La pagina la sua scrollbar la tiene: in una
@@ -426,157 +458,172 @@
 }
 
 /*
- * === SERVIZI: FISARMONICA ===
- * Un solo markup, due orientamenti. Aperta è sempre la card marcata
- * `data-open`, cioè l'ultima visitata: la tiene `ServiceRails`, e dal render
- * lato server è la prima, quindi anche senza JS non è mai tutto chiuso.
- *
- * Mobile, tablet e touch: barre impilate col titolo; al tocco il pannello si
- * apre in verticale. L'animazione è `grid-template-rows` da 0fr a 1fr, l'unico
- * modo di animare fino all'altezza del contenuto senza misurarla in JS.
- *
- * Da `lg` con puntatore fine: cinque binari verticali col titolo ruotato. È
- * aperta la colonna sotto al mouse (o col focus); a riposo quella `data-open`.
- *
- * `:has()` e non `.svc-rails:hover`: passando nel `gap` fra due colonne la
- * lista è in hover ma nessuna colonna sì, e tornerebbe aperta per un attimo
- * quella a riposo.
- *
- * Nessuna altezza fissa per i binari: anche nelle colonne chiuse il contenuto
- * è impaginato (solo trasparente e tagliato), quindi la riga flex prende
- * l'altezza del servizio col testo più lungo e tutte le card si allineano.
- *
- * Il contenuto dei binari ha larghezza fissa pari a quella della colonna
- * aperta (`100cqw` meno i binari chiusi, meno padding e bordo della card),
- * così durante l'animazione la colonna scopre il testo invece di farlo
- * riandare a capo a ogni frame.
- *
- * In entrambi i casi il contenuto chiuso è nascosto solo con opacity e
- * overflow, mai con visibility: hidden, così lo screen reader legge tutti e
- * cinque i servizi.
+ * === SCROLLBAR DELLA PAGINA ===
+ * Solo quella del viewport, nel linguaggio della pagina: ad angolo vivo,
+ * sottile, separata dal contenuto da una riga `--border` come le verticali
+ * della colonna, con il cursore che in hover prende l'accento. Chrome e
+ * Safari passano dagli pseudo-elementi `::-webkit-scrollbar` (gli unici che
+ * permettono riga e hover); `scrollbar-color` va solo a chi non li ha
+ * (Firefox), perché in Chrome li disattiverebbe.
  */
-@media not all and (min-width: 64rem) and (hover: hover) {
-    .svc-rails > li {
-        cursor: pointer;
-    }
-
-    /* il titolo lo porta la barra */
-    .svc-rails .svc-body-title {
-        display: none;
-    }
-
-    .svc-rails .svc-panel {
-        display: grid;
-        grid-template-rows: 0fr;
-    }
-
-    .svc-rails .svc-panel > div {
-        min-height: 0;
-        overflow: hidden;
-    }
-
-    .svc-rails .svc-body {
-        opacity: 0;
-    }
-
-    .svc-rails > li[data-open] .svc-panel {
-        grid-template-rows: 1fr;
-    }
-
-    .svc-rails > li[data-open] .svc-body {
-        opacity: 1;
-    }
-
-    .svc-rails > li[data-open] .svc-bar-icon {
-        rotate: 45deg;
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-        .svc-rails .svc-panel {
-            transition: grid-template-rows 500ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .svc-rails .svc-body {
-            transition: opacity 250ms ease;
-        }
-
-        .svc-rails > li[data-open] .svc-body {
-            transition: opacity 400ms ease 120ms;
-        }
-
-        .svc-rails .svc-bar-icon {
-            transition: rotate 400ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
+@supports not selector(::-webkit-scrollbar) {
+    html {
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-strong) var(--background);
     }
 }
 
-@media (min-width: 64rem) and (hover: hover) {
-    .svc-rails {
-        --svc-rail: 4.5rem;
-        --svc-gap: 0.625rem;
-        container-type: inline-size;
-        display: flex;
-        gap: var(--svc-gap);
-        /* il minimo serve ai titoli verticali più lunghi, che sono assoluti e non spingono */
-        min-height: 17rem;
-    }
+:root::-webkit-scrollbar {
+    width: 11px;
+}
 
-    .svc-rails > li {
-        flex: 0 0 var(--svc-rail);
-    }
+:root::-webkit-scrollbar-track {
+    background: var(--background);
+    border-left: 1px solid var(--border);
+}
 
-    .svc-rails .svc-title-v {
-        display: flex;
-    }
+:root::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-left: 1px solid var(--border);
+}
 
-    .svc-rails .svc-bar {
-        display: none;
-    }
+:root::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
 
-    .svc-rails .svc-panel,
-    .svc-rails .svc-panel > div {
-        display: contents;
-    }
+/*
+ * === SERVIZI: DIVISORI ===
+ * Fra le voci di una cella del bento, linee tratteggiate: su una colonna una
+ * riga fra ogni voce, su due colonne una riga fra le file e una verticale fra
+ * le colonne, che nel 2×2 si incrociano al centro. Sono bordi delle voci
+ * stesse, non decorazione aggiunta, e senza gap fra le colonne si toccano.
+ *
+ * `.svc-list-wide` passa a due colonne da `sm`; `.svc-list-narrow` solo fra
+ * `sm` e `md`, dove la cella è ancora a tutta larghezza (da `md` è stretta e
+ * torna in colonna).
+ */
+/*
+ * Le celle dei servizi sono `<details>`: chiuse su mobile, sempre aperte da
+ * `md`. `::details-content` è la scatola che il browser nasconde quando
+ * `[open]` manca; qui la si rende visibile e la si fa crescere, così il
+ * `justify-between` interno allinea le voci in fondo come prima. Un browser
+ * senza `::details-content` mostra le celle chiuse anche su desktop, ma
+ * apribili col click: degrada, non si rompe.
+ */
+.svc-details::details-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
 
-    .svc-rails .svc-body {
-        width: calc(100cqw - 4 * (var(--svc-rail) + var(--svc-gap)) - 1.5rem - 2px);
-        flex: 1;
-        flex-direction: row;
-        opacity: 0;
-    }
-
-    .svc-rails > li:is(:hover, :focus-within),
-    .svc-rails:not(:has(> li:hover, > li:focus-within)) > li[data-open] {
-        flex-grow: 1;
-    }
-
-    .svc-rails > li:is(:hover, :focus-within) .svc-title-v,
-    .svc-rails:not(:has(> li:hover, > li:focus-within)) > li[data-open] .svc-title-v {
-        opacity: 0;
-    }
-
-    .svc-rails > li:is(:hover, :focus-within) .svc-body,
-    .svc-rails:not(:has(> li:hover, > li:focus-within)) > li[data-open] .svc-body {
-        opacity: 1;
+@media (min-width: 48rem) {
+    .svc-details::details-content {
+        content-visibility: visible;
     }
 }
 
-@media (min-width: 64rem) and (hover: hover) and (prefers-reduced-motion: no-preference) {
-    .svc-rails > li {
-        transition: flex-grow 600ms cubic-bezier(0.16, 1, 0.3, 1);
+/*
+ * Apertura e chiusura animate, solo su mobile (da `md` le celle sono sempre
+ * aperte). `interpolate-size` permette la transizione da 0 a `auto`;
+ * `allow-discrete` tiene visibile il contenuto finché la chiusura non è finita.
+ * `flex: none` serve perché con `flex: 1` la base è 0 e l'altezza la deciderebbe
+ * la crescita, non `block-size`. Dove `interpolate-size` manca, l'altezza
+ * scatta e resta solo la dissolvenza.
+ */
+@media (max-width: 47.99rem) and (prefers-reduced-motion: no-preference) {
+    .svc-details {
+        interpolate-size: allow-keywords;
     }
 
-    .svc-rails .svc-title-v {
-        transition: opacity 200ms ease;
+    .svc-details::details-content {
+        flex: none;
+        block-size: 0;
+        overflow: clip;
+        opacity: 0;
+        /* chiusura: il testo resta visibile e lo taglia il bordo che sale,
+           sfuma solo alla fine; se sfumasse prima, la cella resterebbe vuota
+           per un attimo mentre si stringe */
+        transition:
+            block-size 0.4s cubic-bezier(0.65, 0, 0.35, 1),
+            opacity 0.15s ease 0.25s,
+            content-visibility 0.4s allow-discrete;
     }
 
-    /* in chiusura il testo sparisce subito; in apertura aspetta che la colonna si sia allargata */
-    .svc-rails .svc-body {
-        transition: opacity 200ms ease;
+    .svc-details[open]::details-content {
+        block-size: auto;
+        opacity: 1;
+        /* apertura: l'altezza si distende e il testo compare insieme */
+        transition:
+            block-size 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.35s ease,
+            content-visibility 0.45s allow-discrete;
+    }
+}
+
+.svc-list {
+    display: grid;
+}
+
+.svc-list > li {
+    padding-block: 1.25rem;
+}
+
+.svc-list > li:first-child {
+    padding-top: 0;
+}
+
+.svc-list > li:last-child {
+    padding-bottom: 0;
+}
+
+.svc-list > li + li {
+    border-top: 1px dashed var(--border-strong);
+}
+
+@media (min-width: 40rem) {
+    .svc-list-wide {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .svc-rails > li:is(:hover, :focus-within) .svc-body,
-    .svc-rails:not(:has(> li:hover, > li:focus-within)) > li[data-open] .svc-body {
-        transition: opacity 400ms ease 180ms;
+    .svc-list-wide > li:nth-child(2) {
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    .svc-list-wide > li:nth-child(odd) {
+        padding-right: 2rem;
+    }
+
+    .svc-list-wide > li:nth-child(even) {
+        border-left: 1px dashed var(--border-strong);
+        padding-left: 2rem;
+    }
+
+    .svc-list-wide > li:nth-last-child(2):nth-child(odd) {
+        padding-bottom: 0;
+    }
+}
+
+@media (min-width: 40rem) and (max-width: 47.98rem) {
+    .svc-list-narrow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .svc-list-narrow > li:nth-child(2) {
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    .svc-list-narrow > li:nth-child(odd) {
+        padding-right: 2rem;
+    }
+
+    .svc-list-narrow > li:nth-child(even) {
+        border-left: 1px dashed var(--border-strong);
+        padding-left: 2rem;
+    }
+
+    .svc-list-narrow > li:nth-last-child(2):nth-child(odd) {
+        padding-bottom: 0;
     }
 }

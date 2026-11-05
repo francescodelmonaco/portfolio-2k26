@@ -10,15 +10,6 @@ import type { Messages } from "@/lib/i18n/messages";
 /** Solo le tecnologie presenti anche nello stack hanno un marchio da mostrare. */
 const skillByName = new Map(skills.map((skill) => [skill.name, skill]));
 
-/*
- * Una pila sfalsata a ventaglio: rotazione alternata, sovrapposizione tra
- * vicine su desktop, ogni card uno scalino di z sopra la precedente. Si indicizza
- * per posizione, quindi questi tre array devono restare della stessa lunghezza.
- */
-const CARD_TILT = ["lg:-rotate-3", "lg:rotate-2", "lg:-rotate-2"];
-const CARD_OFFSET = ["", "lg:-ml-10 lg:mt-6", "lg:-ml-10"];
-const CARD_Z = ["z-10", "z-20", "z-30"];
-
 /**
  * Un unico gruppo etichettato invece di una lista: i marchi sono decorativi, e
  * lo stack si legge meglio annunciato come una frase sola che come una lista di
@@ -29,7 +20,7 @@ function TechMarks({ tech }: { tech: string[] }) {
         <div
             role="img"
             aria-label={tech.join(", ")}
-            className="flex w-max items-center gap-2 rounded-full bg-muted px-3 py-1.5"
+            className="flex w-max items-center gap-2 border border-border px-2.5 py-1.5"
         >
             {tech
                 .map((name) => skillByName.get(name))
@@ -95,49 +86,46 @@ function CardShell({ project, copy, children }: { project: Project; copy: Messag
 }
 
 /**
- * L'hover raddrizza la card, la ingrandisce e ne alza lo z-index, così sembra
- * estratta dalla pila.
+ * Tre celle di una griglia `gap-px` sopra `bg-border`: le righe fra le card
+ * sono lo sfondo che traspare, quindi una sola linea fra due vicine. In hover
+ * la barra d'accento di `.panel-interactive` si stende sul bordo superiore.
  *
- * Lo screenshot sta dentro il padding della card con un raggio minore, per
- * tenere le due curve concentriche (raggio pannello 28px − 12px di padding =
- * 16px). Il riquadro è 3:2 come gli screenshot sorgente (1440×960):
- * `object-cover` + `object-top` ritaglia dal basso quelli con un rapporto diverso.
+ * Lo screenshot occupa la cella da bordo a bordo, chiuso da una riga sotto. Il
+ * riquadro è 3:2 come gli screenshot sorgente (1440×960): `object-cover` +
+ * `object-top` ritaglia dal basso quelli con un rapporto diverso.
  */
 export default function WorkSection({ copy }: { copy: Messages["work"] }) {
     return (
         <Section id="work" heading={copy.heading}>
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-0">
+            <div className="grid grid-cols-1 gap-px border border-border bg-border lg:grid-cols-3">
                 {projects.map((project, index) => (
-                    <article
-                        key={project.slug}
-                        className={`relative transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:z-40 hover:scale-110 lg:hover:rotate-0 ${CARD_TILT[index % CARD_TILT.length]} ${CARD_OFFSET[index % CARD_OFFSET.length]} ${CARD_Z[index % CARD_Z.length]}`}
-                    >
+                    <article key={project.slug} className="min-w-0">
                         <CardShell project={project} copy={copy}>
                             {project.screen && (
-                                <div className="overflow-hidden rounded-lg bg-muted">
+                                <div className="overflow-hidden border-b border-border bg-muted">
                                     <Image
                                         src={project.screen}
                                         alt=""
-                                        sizes="(max-width: 1024px) 100vw, 32rem"
+                                        sizes="(max-width: 1024px) 100vw, 24rem"
                                         priority={index < 2}
-                                        className="aspect-3/2 w-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+                                        className="aspect-3/2 w-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-safe:group-hover:scale-[1.03]"
                                     />
                                 </div>
                             )}
 
-                            <div className="flex flex-1 flex-col px-4 pt-6 pb-4 md:px-5">
+                            <div className="flex flex-1 flex-col p-5 md:p-6">
                                 <div className="flex items-start justify-between gap-6">
                                     <div className="min-w-0">
                                         <h3 className="font-display text-xl font-semibold tracking-[-0.02em] transition-colors duration-200 group-hover:text-primary">
                                             {project.title}
                                         </h3>
-                                        <p className="mt-1 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+                                        <p className="hud-label mt-1.5 text-muted-foreground">
                                             {copy.kind[project.kind]}
                                         </p>
                                     </div>
                                     <span
                                         aria-hidden="true"
-                                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:bg-primary-strong group-hover:text-primary-strong-foreground"
+                                        className="flex h-9 w-9 shrink-0 items-center justify-center border border-border-strong text-muted-foreground transition-colors duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground"
                                     >
                                         <ArrowUpRight size={17} strokeWidth={2} />
                                     </span>

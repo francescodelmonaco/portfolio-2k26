@@ -108,17 +108,17 @@ eliminare la solita danza del flag `mounted`.
   `light-dark()` in uno switch di custom property e lo emette sia per
   `@media (prefers-color-scheme: dark)` sia per `:root[data-theme=…]`, il che
   significa che **la modalità sistema funziona anche con il JS disattivato**.
-- `light-dark()` accetta solo valori `<color>`. Per questo i *colori* delle ombre
-  sono token mentre la *geometria* si compone nelle regole `.panel`. Non mettere
-  mai un intero `box-shadow` dentro `light-dark()`.
+- `light-dark()` accetta solo valori `<color>`. Per questo `--glow` è un token
+  colore e la geometria dell'alone si compone in `.blob-glow`. Non mettere mai un
+  intero `box-shadow` dentro `light-dark()`.
 - `theme/theme-script.tsx` è un `<script>` inline sincrono dentro `<head>`, mai
   `next/script`: nessuna strategia di caricamento garantisce l'esecuzione prima
-  del paint. Scrive `data-theme` (risolto), `data-theme-pref` (preferenza) e
+  del paint. Scrive `data-theme` (la scelta salvata o, se manca, il sistema) e
   `class="js"`.
-- Il segmento attivo del controllo è stilizzato **puramente da
-  `[data-theme-pref]` in CSS**, mai dallo stato React; `ThemeToggle` legge la
-  preferenza con `useSyncExternalStore`, così server e client producono markup
-  identico.
+- `ThemeToggle` è un solo bottone che alterna chiaro e scuro e, come lo switcher
+  di lingua, mostra la destinazione (🌙 in chiaro, ☀️ in scuro). L'emoji visibile
+  la sceglie la variante `dark:` in CSS, mai lo stato React; lo stato letto con
+  `useSyncExternalStore` serve solo all'`aria-label`.
 
 Aggiungere un colore significa aggiungere un token `light-dark()` e mapparlo in
 `@theme inline`. Evita i modificatori di opacità Tailwind (`/50`) su questi
@@ -145,34 +145,35 @@ Tailwind v4, configurato interamente in CSS. **Non esiste `tailwind.config`.**
   sintassi con var grezze (`text-(--white)`): nomina un valore, e "testo bianco"
   è sbagliato in tema chiaro.
 - **Tre toni di superficie, e l'ordine conta**: `--background` (canvas della
-  pagina) sta sotto `--surface-alt` (le fasce di sezione) che sta sotto
-  `--surface` (le card). È quella scala a far leggere le card come oggetti
-  fisici; cambiare un valore significa ricontrollare tutti e tre.
-- **La profondità viene da `.panel` / `.panel-soft` / `.panel-interactive`**, non
-  dalle utility shadow di Tailwind. Ognuna sovrappone un'ombra di contatto
-  stretta a una ambientale larga con spread molto negativo, più un highlight
-  interno in alto: una sfocatura sola legge come un rettangolo sfocato invece che
-  come un oggetto. `.panel-interactive` si solleva in hover e si riappoggia su
-  `:active`, protetta da `prefers-reduced-motion`.
-- **Regola delle forme** (documentata anche in `globals.css`): i controlli
-  interattivi sono pillole completamente tonde; i pannelli usano
-  `--radius-panel` (28px); i media dentro un pannello usano il raggio del
-  pannello *meno il suo padding*, così le curve restano concentriche; chip e
-  tessere piccole usano `--radius` (16px); le fasce di sezione usano
-  `--radius-band` (36px).
-- Il blu `#1C4EEF` (schiarito a `#7E99FF` in dark, dove il blu pieno non
-  passerebbe il contrasto) è l'unico accento. Non introdurne un secondo.
+  pagina) sta sotto `--surface-alt` (le sezioni `alt`) che sta sotto
+  `--surface` (le celle); cambiare un valore significa ricontrollare tutti e tre.
+- **Niente ombre: la struttura la danno le linee.** La pagina è una colonna
+  incorniciata (`max-w-frame` + `border-x`) le cui verticali proseguono
+  nell'header; ogni sezione si chiude con un `border-b`. La colonna ha un fondo
+  proprio (`.frame`, canvas pieno), così la trama di punti si vede solo nelle
+  gronde ai lati. Le griglie di card sono `gap-px border bg-border` con celle `.panel`
+  (solo riempimento), così fra due vicine c'è una linea sola.
+  `.panel-interactive` in hover stende una barra d'accento sul bordo superiore;
+  `.nav-link` fa lo stesso sul bordo inferiore dei link della nav.
+- **Regola delle forme** (documentata anche in `globals.css`): tutto ad angolo
+  vivo, nessun `rounded-*`. La scala `--radius-*` in `@theme` è azzerata, così
+  anche un componente shadcn aggiunto nasce squadrato.
+- Un accento per tema, identico ovunque: `#0729EF` in chiaro (campionato dal
+  fondo del ritratto) e il blu schiarito `#6A8CFF` in dark. Il ritratto nell'hero è
+  scontornato e sta su `bg-primary`, quindi anche il suo fondo segue il tema.
+  L'unica seconda tinta è il giallo burro (`--warm-wash`), solo nella cella
+  Siti del bento.
 - Tre font, caricati una volta sola in `lib/fonts.ts`: Bricolage Grotesque →
   `font-display`, DM Sans → `font-sans`, DM Mono → `font-mono` (le piccole
   diciture maiuscole spaziate). DM Mono non ha un taglio variabile, da cui i pesi
-  espliciti.
+  espliciti. Bricolage carica anche l'asse `wdth` per `font-stretch-condensed`:
+  titoli di sezione e delle aree dei servizi sono in maiuscolo grassetto
+  condensato, ed è quella la firma tipografica della pagina.
 - Le sezioni condividono `components/ui/section.tsx`, che accetta un `tone`
   `base` o `alt`. **Alternali così che due sezioni vicine non condividano mai il
-  tono**: ora che le righe sottili non ci sono più, è quello scalino di colore a
-  separare le sezioni. Ordine attuale: hero `base`, services `alt`, work `base`,
-  stack `alt`, contact `base`, footer `alt`. I due toni condividono la stessa
-  gronda esterna e la stessa misura interna, così il bordo sinistro di ogni
-  titolo resta allineato lungo la pagina. **Nessuna etichetta sopra ai titoli.**
+  tono**: insieme alla riga di fondo, è quello scalino a separare le sezioni. Ordine attuale: hero `base`, services `alt`, work `base`,
+  stack `alt`, contact `base`, footer `alt`. I due toni condividono lo stesso
+  padding, così il bordo sinistro di ogni titolo resta allineato lungo la pagina. **Nessuna etichetta sopra ai titoli.**
 - Lo scroll reveal è CSS pilotato da un unico `IntersectionObserver` condiviso.
   Lo stato nascosto è protetto due volte, da `prefers-reduced-motion:
   no-preference` **e** da `.js`: così né una preferenza di animazioni ridotte né
@@ -186,28 +187,18 @@ Tailwind v4, configurato interamente in CSS. **Non esiste `tailwind.config`.**
   nell'HTML renderizzato dal server, il che è incompatibile in radice con un tema
   applicato via script, e il suo parser è precedente alle registrazioni
   `@property --tw-*` di Tailwind v4.
-- **Le fasce di sezione (`Section` con `tone="alt"` e `Footer`) usano padding
-  fisso sul contenitore, non più `max-w-band` + `mx-auto`.** Con quella
-  combinazione l'inset x era in pratica governato dal centraggio contro
-  `max-w-band`: cresceva senza limite sugli schermi larghi indipendentemente
-  dal valore di inset dichiarato, restando sempre più ampio dell'inset y. Il
-  padding non ha quell'effetto — x e y restano il valore dichiarato a ogni
-  ampiezza di schermo, ed è per questo che ora sono uguali in pixel in
-  desktop.
 - **Express e PHP arrivano come SVG separati chiaro/scuro** invece che come un
   unico marchio in `currentColor`. Una `Skill` in `lib/data.ts` porta un
   `iconDark` opzionale; `stack-section.tsx` e `work-section.tsx` rendono entrambi
   i `next/image` e ne alternano la visibilità con la variante `dark:`, quindi lo
   scambio non richiede JS. Ogni nuovo logo senza un marchio leggibile in entrambi
   i temi ha bisogno della stessa coppia `icon`/`iconDark`.
-- **`backdrop-filter` compare esattamente una volta**, in `.nav-pill`, e deve
-  restare così. L'header è `fixed`, quindi la sfocatura è un composite una
-  tantum; applicata a contenuto che scorre forza ridisegni GPU continui e
-  distrugge il frame rate su mobile. Ha un fallback a riempimento pieno sotto
-  `prefers-reduced-transparency`. Dato che l'header è `fixed` non occupa spazio
-  nel layout: il padding superiore corrispondente lo porta la hero
-  (`pt-28 md:pt-40`), quindi cambiare l'altezza della nav significa cambiare
-  anche quello.
+- **`backdrop-filter` vive solo in `.nav-glass`** (header `sticky` e bottone
+  `fixed` di ritorno in cima) e deve restare così: applicata a contenuto che
+  scorre forza ridisegni GPU continui e distrugge il frame rate su mobile. Ha un
+  fallback a riempimento pieno sotto `prefers-reduced-transparency`. L'header è
+  alto 3rem e `scroll-padding-top: 3rem` su `html` tiene le ancore fuori da
+  sotto la barra: cambiare l'altezza della nav significa cambiare anche quello.
 - **Gli elementi di griglia hanno bisogno di `min-w-0` esplicito** ovunque una
   cella possa contenere una stringa non spezzabile. Le tracce di griglia partono
   da `min-width: auto`, per cui l'indirizzo email in `contact-section.tsx`

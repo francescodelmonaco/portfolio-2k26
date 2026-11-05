@@ -51,6 +51,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     "PostgreSQL",
                     "MySQL",
                     "Supabase",
+                    "Retrieval-Augmented Generation",
+                    "Large Language Models",
+                    "AI agents",
                 ],
             },
             {

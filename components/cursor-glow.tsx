@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Lo stesso alone del ritratto (`.blob-glow`, token `--glow`) che segue il
+ * L'alone di accento (`.blob-glow`, token `--glow`) che segue il
  * puntatore. Il colore arriva da `light-dark()`, quindi il cambio di tema non
  * passa di qui.
  *

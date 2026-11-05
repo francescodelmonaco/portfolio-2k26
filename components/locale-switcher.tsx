@@ -26,8 +26,8 @@ function swapLocaleSegment(pathname: string, target: Locale) {
 
 /**
  * Con esattamente due lingue, un unico link che mostra la lingua di *arrivo*
- * batte un controllo a due segmenti: dimezza la larghezza dentro una pillola
- * flottante e non lascia ambiguità su cosa faccia il clic.
+ * batte un controllo a due segmenti: dimezza la larghezza dentro una cella
+ * della barra e non lascia ambiguità su cosa faccia il clic.
  *
  * La bandiera è accompagnata dal codice lingua e non porta mai il significato
  * da sola: una bandiera nomina un paese, non una lingua, e 🇬🇧 per "inglese" è
@@ -59,7 +59,7 @@ export default function LocaleSwitcher({
             onClick={() => remember(target)}
             title={labels.switchTo[target]}
             aria-label={labels.switchTo[target]}
-            className="flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-muted-foreground transition-colors duration-200 hover:bg-muted hover:text-foreground"
+            className="nav-link flex items-center gap-1.5 border-l border-border px-3 text-muted-foreground"
         >
             <span aria-hidden="true" className="text-sm leading-none">
                 {FLAGS[target]}

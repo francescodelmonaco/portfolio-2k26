@@ -1,5 +1,5 @@
-import type { ProjectSlug, SkillGroup } from "@/lib/data";
-import type { Messages } from "./it";
+import type { ProjectSlug, ServiceArea, SkillGroup } from "@/lib/data";
+import type { Messages, ServiceAreaCopy } from "./it";
 
 const projectCopy: Record<ProjectSlug, { description: string }> = {
     "alberi-di-vita": {
@@ -13,6 +13,91 @@ const projectCopy: Record<ProjectSlug, { description: string }> = {
     "pocket-garage": {
         description:
             "A PWA for keeping track of your vehicles: deadlines, servicing, refuelling, insurance and road tax.",
+    },
+};
+
+const serviceCopy: Record<ServiceArea, ServiceAreaCopy> = {
+    ai: {
+        title: "Artificial intelligence",
+        intro: "Systems built on your own data and processes, from prototype to production.",
+        items: [
+            {
+                title: "RAG systems",
+                body: "Assistants that answer from your own documents and databases, citing their sources.",
+            },
+            {
+                title: "AI agents",
+                body: "They call tools and APIs and finish multi-step tasks on your behalf.",
+            },
+            {
+                title: "AI in existing products",
+                body: "Natural-language search, summaries and data extraction inside the software you already have.",
+            },
+            {
+                title: "Chatbots and AI assistants",
+                body: "For your site or for internal use, with clear rules on what they can and cannot say.",
+            },
+        ],
+    },
+    data: {
+        title: "Business software and data",
+        items: [
+            {
+                title: "Custom business software",
+                body: "Records, workflows and reports built around the way you work.",
+            },
+            {
+                title: "Dashboards and reports",
+                body: "Numbers scattered across spreadsheets, in one up-to-date view.",
+            },
+            {
+                title: "Backend and databases",
+                body: "APIs, data models and permissions on AWS or Google Cloud, designed to handle growth.",
+            },
+            {
+                title: "Automation",
+                body: "Notifications, syncing and documents that generate themselves.",
+            },
+        ],
+    },
+    web: {
+        title: "Websites and platforms",
+        intro: "From a single page to a platform with private areas, connected to the services you already use.",
+        items: [
+            {
+                title: "Marketing sites",
+                body: "Fast, polished and easy to find on search engines.",
+            },
+            {
+                title: "Landing pages",
+                body: "A single page built around one goal.",
+            },
+            {
+                title: "CMS and private areas",
+                body: "Content you update yourself, different access for different roles.",
+            },
+            {
+                title: "API integrations",
+                body: "Payments, CRM, email and invoicing connected to each other.",
+            },
+        ],
+    },
+    apps: {
+        title: "Apps and MVPs",
+        items: [
+            {
+                title: "Mobile apps",
+                body: "iOS and Android, from interface design to store release.",
+            },
+            {
+                title: "Web apps and PWAs",
+                body: "Installable from the browser and usable offline.",
+            },
+            {
+                title: "Start-up MVPs",
+                body: "From a clickable prototype to a product you can show an investor.",
+            },
+        ],
     },
 };
 
@@ -31,7 +116,7 @@ export const en: Messages = {
     meta: {
         title: "Francesco Delmonaco - Full stack developer",
         description:
-            "Full stack developer based in Brescia, Italy. I build custom business software, web applications, platforms and start-up demos, handling the whole process from analysis to release.",
+            "Full stack developer based in Brescia, Italy. I build custom business software, web applications, RAG systems and AI integrations, handling the whole process from analysis to release.",
         siteName: "Francesco Delmonaco",
         keywords: [
             "Francesco Delmonaco",
@@ -41,6 +126,9 @@ export const en: Messages = {
             "web applications",
             "PWA",
             "start-up demo",
+            "RAG systems",
+            "AI integration",
+            "AI agents",
             "Next.js",
             "React",
             "Supabase",
@@ -61,10 +149,10 @@ export const en: Messages = {
     },
 
     theme: {
-        group: "Theme",
-        light: "Light",
-        system: "Auto",
-        dark: "Dark",
+        switchTo: {
+            light: "Switch to light theme",
+            dark: "Switch to dark theme",
+        },
     },
 
     hero: {
@@ -75,33 +163,8 @@ export const en: Messages = {
 
     services: {
         heading: "What I do",
-        items: [
-            {
-                title: "Custom business software",
-                body: "Records, workflows and reporting for teams that have outgrown the spreadsheet. Built around the process you already run, not a generic template.",
-                tags: ["Records", "Workflows", "Reports and dashboards"],
-            },
-            {
-                title: "Web apps and PWAs",
-                body: "Installable from the browser and usable offline. One codebase for desktop, tablet and phone.",
-                tags: ["Installable", "Offline", "Any device"],
-            },
-            {
-                title: "Platforms and websites",
-                body: "Marketing sites with a CMS you can update yourself, private areas, integrations with the services you already use.",
-                tags: ["CMS", "Private areas", "Integrations"],
-            },
-            {
-                title: "Start-up demos",
-                body: "From a clickable prototype to a working MVP, to validate an idea or take it in front of an investor.",
-                tags: ["Prototype", "MVP", "Investor pitch"],
-            },
-            {
-                title: "Mobile apps",
-                body: "Native and cross-platform apps for iOS and Android, from interface design through to store release.",
-                tags: ["iOS", "Android", "Store release"],
-            },
-        ],
+        areas: serviceCopy,
+        itemsLabel: "services",
     },
 
     work: {

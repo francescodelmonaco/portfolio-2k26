@@ -1,3 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <text x="32" y="45" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="38" letter-spacing="-2" fill="#1C4EEF">FD</text>
+  <!-- segue il tema del browser/sistema, non il toggle del sito: stessi due valori di --primary -->
+  <style>path { fill: #0729EF } @media (prefers-color-scheme: dark) { path { fill: #6A8CFF } }</style>
+  <!-- "FD" in Bricolage Grotesque 700, wdth 75: lo stesso taglio del monogramma della nav, convertito in tracciati perché un favicon non carica webfont -->
+  <path transform="translate(0.2 54.7) scale(0.0689)" d="M55 0V-660H193V0ZM116 -259V-367H353V-259ZM116 -549V-660H375V-549Z M517 0V-110H626Q661 -110 684.0 -134.0Q707 -158 718.5 -207.0Q730 -256 730 -330Q730 -388 723.5 -429.5Q717 -471 703.5 -498.0Q690 -525 668.5 -537.5Q647 -550 618 -550H517V-660H617Q690 -660 746.5 -621.5Q803 -583 835.5 -509.0Q868 -435 868 -328Q868 -241 850.5 -182.5Q833 -124 805.0 -88.0Q777 -52 745.0 -33.0Q713 -14 683.0 -7.0Q653 0 631 0ZM446 0V-660H584V0Z"/>
 </svg>

@@ -30,7 +30,7 @@ export default function ContactSection({ copy }: { copy: Messages["contact"] }) 
                 partono da min-width:auto, il che lascia che l'indirizzo email,
                 che non si può spezzare, allarghi tutta la colonna oltre il
                 viewport */}
-            <ul className="grid gap-4 sm:grid-cols-2 md:gap-5">
+            <ul className="grid gap-px border border-border bg-border sm:grid-cols-2">
                 {rows.map((row) => (
                     <li key={row.label} className="min-w-0">
                         <a
@@ -42,7 +42,7 @@ export default function ContactSection({ copy }: { copy: Messages["contact"] }) 
                         >
                             <span
                                 aria-hidden="true"
-                                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-muted text-muted-foreground transition-colors duration-300 group-hover:bg-primary-strong group-hover:text-primary-strong-foreground"
+                                className="flex h-12 w-12 shrink-0 items-center justify-center border border-border bg-muted text-muted-foreground transition-colors duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground"
                             >
                                 <row.Icon size={20} strokeWidth={1.75} />
                             </span>

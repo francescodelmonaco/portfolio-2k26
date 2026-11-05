@@ -4,9 +4,9 @@ import { skillGroups, skills } from "@/lib/data";
 import type { Messages } from "@/lib/i18n/messages";
 
 /**
- * Chip statiche raggruppate per ruolo. Non un marquee: un ciclo in autoplay non
- * ha una via d'uscita per chi riduce le animazioni (WCAG 2.2.2) e annuncia ogni
- * tecnologia due volte.
+ * Una riga per ruolo, separate da linee, con tessere squadrate statiche. Non
+ * un marquee: un ciclo in autoplay non ha una via d'uscita per chi riduce le
+ * animazioni (WCAG 2.2.2) e annuncia ogni tecnologia due volte.
  *
  * I marchi con variante `iconDark` rendono entrambe le immagini e lasciano
  * scegliere alla variante `dark:` (pilotata da `[data-theme]`, vedi
@@ -15,13 +15,13 @@ import type { Messages } from "@/lib/i18n/messages";
 export default function StackSection({ copy }: { copy: Messages["stack"] }) {
     return (
         <Section id="stack" heading={copy.heading} tone="alt">
-            <div className="flex flex-col gap-10">
+            <div className="border-b border-border-strong">
                 {skillGroups.map((group) => (
                     <div
                         key={group}
-                        className="grid gap-4 md:grid-cols-[minmax(0,13rem)_1fr] md:items-center md:gap-10"
+                        className="grid gap-4 border-t border-border-strong py-6 md:grid-cols-[minmax(0,13rem)_1fr] md:items-center md:gap-10"
                     >
-                        <h3 className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
+                        <h3 className="hud-label text-muted-foreground">
                             {copy.groups[group]}
                         </h3>
 
@@ -31,7 +31,7 @@ export default function StackSection({ copy }: { copy: Messages["stack"] }) {
                                 .map((skill) => (
                                     <li
                                         key={skill.name}
-                                        className="panel-soft flex items-center gap-2.5 rounded-full py-2 pr-4 pl-3"
+                                        className="flex items-center gap-2.5 border border-border bg-surface py-2 pr-3.5 pl-3"
                                     >
                                         {skill.iconDark ? (
                                             <>

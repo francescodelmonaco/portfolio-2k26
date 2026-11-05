@@ -18,6 +18,11 @@ import laravelIcon from '../public/icons/laravel.svg';
 import phpLightIcon from '../public/icons/php-light.svg';
 import phpDarkIcon from '../public/icons/php-dark.svg';
 
+// icone cloud
+import awsLightIcon from '../public/icons/aws_light.svg';
+import awsDarkIcon from '../public/icons/aws_dark.svg';
+import googleCloudIcon from '../public/icons/google-cloud.svg';
+
 // icone mobile
 import expoIcon from '../public/icons/expo.svg';
 
@@ -39,6 +44,11 @@ export type ProjectSlug = 'alberi-di-vita' | 'goalcrew' | 'pocket-garage';
 export type ProjectKind = 'fullstack' | 'frontend' | 'mobile';
 
 export type SkillGroup = 'frontend' | 'backend' | 'data' | 'mobile';
+
+/** Le aree dei servizi, nell'ordine del bento: i testi vivono in messages/, indicizzati da queste chiavi. */
+export type ServiceArea = 'ai' | 'data' | 'web' | 'apps';
+
+export const serviceAreas: ServiceArea[] = ['ai', 'data', 'apps', 'web'];
 
 export interface Project {
     slug: ProjectSlug;
@@ -72,6 +82,8 @@ export const skills: Skill[] = [
     { name: 'PostgreSQL', icon: postgresqlIcon, group: 'data' },
     { name: 'MySQL', icon: mysqlIcon, group: 'data' },
     { name: 'Supabase', icon: supabaseIcon, group: 'data' },
+    { name: 'AWS', icon: awsLightIcon, iconDark: awsDarkIcon, group: 'data' },
+    { name: 'Google Cloud', icon: googleCloudIcon, group: 'data' },
     { name: 'Expo', icon: expoIcon, group: 'mobile' },
 ];
 
@@ -82,8 +94,7 @@ export const projects: Project[] = [
         slug: 'goalcrew',
         title: 'GoalCrew',
         tech: ['Expo', 'TypeScript', 'Tailwind', 'Supabase'],
-        // senza storefront nel percorso: Apple reindirizza a quello del visitatore
-        link: 'https://apps.apple.com/app/id6811418063',
+        link: 'https://apps.apple.com/it/app/goalcrew/id6811418063',
         kind: 'mobile',
         screen: goalcrewScreen,
     },

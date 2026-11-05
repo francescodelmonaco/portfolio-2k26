@@ -27,7 +27,7 @@ export default function NotFound() {
             </head>
             <body className={`${fontVariables} antialiased`}>
                 <main className="mx-auto flex w-full max-w-5xl flex-col items-start px-6 py-28 md:py-40">
-                    <p className="font-mono text-[11px] tracking-[0.22em] text-muted-foreground uppercase">
+                    <p className="hud-label text-muted-foreground">
                         404
                     </p>
                     <h1 className="mt-4 font-display text-4xl font-semibold tracking-[-0.03em] md:text-5xl">
@@ -38,7 +38,7 @@ export default function NotFound() {
                     </p>
                     <Link
                         href={`/${defaultLocale}`}
-                        className="mt-8 rounded-full border border-border px-4 py-2 font-mono text-[11px] tracking-[0.16em] uppercase transition-colors duration-200 hover:border-border-strong hover:text-primary"
+                        className="hud-label mt-8 border border-border-strong px-4 py-2.5 transition-colors duration-200 hover:border-primary hover:text-primary"
                     >
                         {m.notFound.back}
                     </Link>
